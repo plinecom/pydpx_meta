@@ -26,9 +26,20 @@ class DpxGenericHeaderBigEndian(ctypes.BigEndianStructure):
     ]
 
 
+class DpxGenericImageHeaderBigEndian(ctypes.BigEndianStructure):
+    _fields_ = [
+        ('Orientation', ctypes.c_uint16),
+        ('NumberElements', ctypes.c_uint16),
+        ('PixelsPerLine',ctypes.c_uint32),
+        ('LinesPerElement',ctypes.c_uint32),
+        ('Reserved',ctypes.c_char*52)
+    ]
+
+
 class DpxBigEndian(ctypes.BigEndianStructure):
     _fields_ = [
-        ('GenericHeader',DpxGenericHeaderBigEndian)
+        ('GenericHeader',DpxGenericHeaderBigEndian),
+        ('GenericImageHeader',DpxGenericImageHeaderBigEndian)
     ]
 fp = open("/root/V14_37_26_01_v001.0186.dpx","rb")
 fpw = open("/root/test.dpx","wb")
@@ -47,6 +58,8 @@ print dpx.GenericHeader.FileName
 print dpx.GenericHeader.TimeData
 print dpx.GenericHeader.Creator
 print dpx.GenericHeader.Project
+print dpx.GenericImageHeader.Orientation
+print dpx.GenericImageHeader.NumberElements
 magic = ""
 if magic == "SDPX":
     big_endian = True

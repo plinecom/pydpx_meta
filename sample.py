@@ -26,6 +26,17 @@ class DpxGenericHeaderBigEndian(ctypes.BigEndianStructure):
     ]
 
 
+class DpxGenericImageElementBigEndian(ctypes.BigEndianStructure):
+    _fields_ = [
+        ('DataSign', ctypes.c_uint32),
+        ('LowData', ctypes.c_uint32),
+        ('LowQuantity',ctypes.c_float),
+        ('HighData',ctypes.c_uint32),
+        ('HighQuantity',ctypes.c_float),
+        ('Reserved',ctypes.c_char*52)
+    ]
+
+
 class DpxGenericImageHeaderBigEndian(ctypes.BigEndianStructure):
     _fields_ = [
         ('Orientation', ctypes.c_uint16),

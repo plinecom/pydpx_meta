@@ -9,20 +9,20 @@ import ctypes
 class DpxGenericHeaderBigEndian(ctypes.BigEndianStructure):
     _fields_ = [
         ('Magic', ctypes.c_char*4),
-        ('ImageOffset',ctypes.c_uint32),
-        ('Version',ctypes.c_char*8),
-        ('FileSize',ctypes.c_uint32),
-        ('DittoKey',ctypes.c_uint32),
-        ('GenericSize',ctypes.c_uint32),
-        ('IndustrySize',ctypes.c_uint32),
-        ('UserSize',ctypes.c_uint32),
-        ('FileName',ctypes.c_char*100),
-        ('TimeData',ctypes.c_char*24),
-        ('Creator',ctypes.c_char*100),
-        ('Project',ctypes.c_char*200),
-        ('Copyright',ctypes.c_char*200),
-        ('EncryptKey',ctypes.c_uint32),
-        ('Reserved',ctypes.c_char*104)
+        ('ImageOffset', ctypes.c_uint32),
+        ('Version', ctypes.c_char*8),
+        ('FileSize', ctypes.c_uint32),
+        ('DittoKey', ctypes.c_uint32),
+        ('GenericSize', ctypes.c_uint32),
+        ('IndustrySize', ctypes.c_uint32),
+        ('UserSize', ctypes.c_uint32),
+        ('FileName', ctypes.c_char*100),
+        ('TimeData', ctypes.c_char*24),
+        ('Creator', ctypes.c_char*100),
+        ('Project', ctypes.c_char*200),
+        ('Copyright', ctypes.c_char*200),
+        ('EncryptKey', ctypes.c_uint32),
+        ('Reserved', ctypes.c_char*104)
     ]
 
 
@@ -30,19 +30,19 @@ class DpxGenericImageElementBigEndian(ctypes.BigEndianStructure):
     _fields_ = [
         ('DataSign', ctypes.c_uint32),
         ('LowData', ctypes.c_uint32),
-        ('LowQuantity',ctypes.c_float),
-        ('HighData',ctypes.c_uint32),
-        ('HighQuantity',ctypes.c_float),
-        ('Descripter',ctypes.c_byte),
-        ('Transfer',ctypes.c_byte),
-        ('Colorimetric',ctypes.c_byte),
-        ('BitSize',ctypes.c_byte),
-        ('Packing',ctypes.c_uint16),
-        ('Encoding',ctypes.c_uint16),
+        ('LowQuantity', ctypes.c_float),
+        ('HighData', ctypes.c_uint32),
+        ('HighQuantity', ctypes.c_float),
+        ('Descriptor', ctypes.c_byte),
+        ('Transfer', ctypes.c_byte),
+        ('Colorimetric', ctypes.c_byte),
+        ('BitSize', ctypes.c_byte),
+        ('Packing', ctypes.c_uint16),
+        ('Encoding', ctypes.c_uint16),
         ('DataOffset', ctypes.c_uint32),
         ('EndOfLinePadding', ctypes.c_uint32),
         ('EndOfImagePadding', ctypes.c_uint32),
-        ('Description',ctypes.c_char*32)
+        ('Description', ctypes.c_char*32)
     ]
 
 
@@ -50,10 +50,10 @@ class DpxGenericImageHeaderBigEndian(ctypes.BigEndianStructure):
     _fields_ = [
         ('Orientation', ctypes.c_uint16),
         ('NumberElements', ctypes.c_uint16),
-        ('PixelsPerLine',ctypes.c_uint32),
-        ('LinesPerElement',ctypes.c_uint32),
+        ('PixelsPerLine', ctypes.c_uint32),
+        ('LinesPerElement', ctypes.c_uint32),
         ('ImageElement', DpxGenericImageElementBigEndian*8),
-        ('Reserved',ctypes.c_char*52)
+        ('Reserved', ctypes.c_char*52)
     ]
 
 
@@ -71,7 +71,7 @@ class DpxGenericOrientationHeaderBigEndian(ctypes.BigEndianStructure):
         ('InputSN', ctypes.c_char*32),
         ('Border', ctypes.c_uint16*4),
         ('AspectRatio', ctypes.c_uint32*2),
-        ('Reserved',ctypes.c_byte*28)
+        ('Reserved', ctypes.c_byte*28)
     ]
 
 

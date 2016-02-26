@@ -2,7 +2,7 @@ import pydpx_meta.pydpx
 
 meta = pydpx_meta.pydpx.header
 
-import struct
+
 import ctypes
 
 
@@ -74,11 +74,31 @@ class DpxGenericOrientationHeaderBigEndian(ctypes.BigEndianStructure):
         ('Reserved',ctypes.c_byte*28)
     ]
 
+
+class DpxIndustryFilmInfoHeaderBigEndian(ctypes.BigEndianStructure):
+    _fields_ = [
+        ('FilmMfgId', ctypes.c_char*2),
+        ('FilmType', ctypes.c_char*2),
+        ('Offset', ctypes.c_char*2),
+        ('Prefix', ctypes.c_char*6),
+        ('Count', ctypes.c_char*4),
+        ('Format', ctypes.c_char*32),
+        ('FramePosition', ctypes.c_uint32),
+        ('SequenceLen', ctypes.c_uint32),
+        ('HeldCount', ctypes.c_uint32),
+        ('FrameRate', ctypes.c_float),
+        ('ShutterAngle', ctypes.c_float),
+        ('FrameId', ctypes.c_char*32),
+        ('SlateInfo', ctypes.c_char*100),
+        ('Reserved', ctypes.c_byte*56)
+    ]
+
 class DpxBigEndian(ctypes.BigEndianStructure):
     _fields_ = [
-        ('FileHeader',DpxGenericHeaderBigEndian),
-        ('ImageHeader',DpxGenericImageHeaderBigEndian),
-        ('OrientHeader',DpxGenericOrientationHeaderBigEndian)
+        ('FileHeader', DpxGenericHeaderBigEndian),
+        ('ImageHeader', DpxGenericImageHeaderBigEndian),
+        ('OrientHeader', DpxGenericOrientationHeaderBigEndian),
+        ('FilmHeader', DpxIndustryFilmInfoHeaderBigEndian)
     ]
 fp = open("/root/V14_37_26_01_v001.0186.dpx","rb")
 fpw = open("/root/test.dpx","wb")

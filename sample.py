@@ -20,6 +20,10 @@ print dpx.header.ImageHeader.NumberElements
 print dpx.header.ImageHeader.ImageElement[0].Description
 print dpx.header.OrientHeader.XOriginalSize
 print dpx.header.OrientHeader.YOriginalSize
+print dpx.header.TvHeader.TimeCode
+print '{0:0>30x}'.format(dpx.header.TvHeader.TimeCode)
+print dpx.header.TvHeader.UserBits
+print dpx.header.TvHeader.FrameRate
 
 
 fpw.write(dpx.header)

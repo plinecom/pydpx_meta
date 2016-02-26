@@ -21,8 +21,5 @@ print dpx.header.ImageHeader.ImageElement[0].Description
 print dpx.header.OrientHeader.XOriginalSize
 print dpx.header.OrientHeader.YOriginalSize
 
-magic = ""
-if magic == "SDPX":
-    big_endian = True
 
 fpw.write(dpx.header)

@@ -93,12 +93,36 @@ class DpxIndustryFilmInfoHeaderBigEndian(ctypes.BigEndianStructure):
         ('Reserved', ctypes.c_byte*56)
     ]
 
+
+class DpxIndustryTelevisionInfoHeaderBigEndian(ctypes.BigEndianStructure):
+    _fields_ = [
+        ('TimeCode', ctypes.c_uint32),
+        ('UserBits', ctypes.c_uint32),
+        ('Interlace', ctypes.c_byte),
+        ('FieldNumber', ctypes.c_byte),
+        ('VideoSignal', ctypes.c_byte),
+        ('Padding', ctypes.c_byte),
+        ('HorzSampleRate', ctypes.c_float),
+        ('VertSampleRate', ctypes.c_float),
+        ('FrameRate', ctypes.c_float),
+        ('TimeOffset', ctypes.c_float),
+        ('Gamma', ctypes.c_float),
+        ('BlackLevel', ctypes.c_float),
+        ('BlackGain', ctypes.c_float),
+        ('Breakpoint', ctypes.c_float),
+        ('WhiteLevel', ctypes.c_float),
+        ('IntegrationTimes', ctypes.c_float),
+        ('Reserved', ctypes.c_byte*76)
+    ]
+
+
 class DpxBigEndian(ctypes.BigEndianStructure):
     _fields_ = [
         ('FileHeader', DpxGenericHeaderBigEndian),
         ('ImageHeader', DpxGenericImageHeaderBigEndian),
         ('OrientHeader', DpxGenericOrientationHeaderBigEndian),
-        ('FilmHeader', DpxIndustryFilmInfoHeaderBigEndian)
+        ('FilmHeader', DpxIndustryFilmInfoHeaderBigEndian),
+        ('TvHeader', DpxIndustryTelevisionInfoHeaderBigEndian)
     ]
 fp = open("/root/V14_37_26_01_v001.0186.dpx","rb")
 fpw = open("/root/test.dpx","wb")

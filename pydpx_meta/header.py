@@ -45,32 +45,126 @@ class _DpxGenericHeader:
     def __init__(self, header):
         self._raw_header = header
 
+    @property
     def magic(self):
         return str(self._raw_header.FileHeader.Magic)
+    @magic.setter
+    def magic(self, magic):
+        if magic == "SDPX" or magic == "XPDS"
+            self._raw_header.FileHeader.Magic = magic
 
+    @property
     def image_offset(self):
         return self._raw_header.FileHeader.ImageOffset
+    @image_offset.setter
+    def image_offset(self,offset):
+        self._raw_header.FileHeader.ImageOffset = offset
 
+    @property
     def version(self):
         return str(self._raw_header.FileHeader.Version)
+    @version.setter
+    def version(self, ver):
+        self._raw_header.FileHeader.Version = ver
+
+    @property
+    def file_size(self):
+        return self._raw_header.FileHeader.FileSize
+    @file_size.setter
+    def file_size(self, size):
+        self._raw_header.FileHeader.FileSize = size
+
+    @property
+    def dit_to_key(self):
+        return self._raw_header.FileHeader.DittoKey
+    @dit_to_key.setter
+    def dit_to_key(self, value):
+        self._raw_header.FileHeader.DittoKey = value
+
+    @property
+    def generic_size(self):
+        return self._raw_header.FileHeader.GenericSize
+    @generic_size.setter
+    def generic_size(self, size):
+        self._raw_header.FileHeader.GenericSize = size
+
+    @property
+    def industry_size(self):
+        return self._raw_header.FileHeader.IndustrySize
+    @industry_size.setter
+    def industry_size(self, size):
+        self._raw_header.FileHeader.IndustrySize = size
+
+    @property
+    def user_size(self):
+        return self._raw_header.FileHeader.UserSize
+    @user_size.setter
+    def user_size(self, size):
+        self._raw_header.FileHeader.UserSize = size
+
+    @property
+    def file_name(self):
+        return str(self._raw_header.FileHeader.FileName)
+    @file_name.setter
+    def file_name(self, name):
+        self._raw_header.FileHeader.FileName = name
+
+    @property
+    def time_data(self):
+        return str(self._raw_header.FileHeader.TimeData)
+    @time_data.setter
+    def time_data(self, time):
+        self._raw_header.FileHeader.TimeData = time
+
+    @property
+    def creator(self):
+        return str(self._raw_header.FileHeader.Creator)
+    @creator.setter
+    def creator(self, creator_name):
+        self._raw_header.FileHeader.Creator = creator_name
+
+    @property
+    def project(self):
+        return str(self._raw_header.FileHeader.Project)
+    @project.setter
+    def project(self, project_name):
+        self._raw_header.FileHeader.Project = project_name
+
+    @property
+    def copyright(self):
+        return str(self._raw_header.FileHeader.Copyright)
+    @copyright.setter
+    def copyright(self, name):
+        self._raw_header.FileHeader.Copyright = name
+
+    @property
+    def encrypt_key(self):
+        return self._raw_header.FileHeader.EncryptKey
+    @encrypt_key.setter
+    def encrypt_key(self, key):
+        self._raw_header.FileHeader.EncryptKey = key
 
 
 class _DpxIndustryTelevisionInfoHeader:
     def __init__(self, header):
         self._raw_header = header
 
+
+    @property
     def timecode(self):
         timecode_tmp = '{0:0>8x}'.format(self._raw_header.TvHeader.TimeCode)
         timecode_str = timecode_tmp[0:2]+":"+timecode_tmp[2:4]+":"+timecode_tmp[4:6]+":"+timecode_tmp[6:8]
 
         return str(timecode_str)
 
-    def set_timecode(self, timecode):
+    @timecode.setter
+    def timecode(self, timecode):
         timecode = timecode.lower()
         timecode_hex = "".join(timecode.split(":"))
-        print timecode_hex
         tc_dpx = int(timecode_hex, 16)
         self._raw_header.TvHeader.TimeCode = tc_dpx
+
+
 
 
 

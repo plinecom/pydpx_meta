@@ -9,9 +9,9 @@ for file in sorted(files):
 
 dpx = header.DpxHeader("/root/V14_37_26_01_v001.0186.dpx")
 print dpx.raw_header.FileHeader.Magic
-print dpx.file_header.magic()
+print dpx.file_header.magic
 print dpx.raw_header.FileHeader.ImageOffset
-print dpx.file_header.image_offset()
+print dpx.file_header.image_offset
 print dpx.raw_header.FileHeader.Version
 print dpx.raw_header.FileHeader.FileSize
 print dpx.raw_header.FileHeader.DittoKey
@@ -34,8 +34,10 @@ print timecode_str
 print dpx.raw_header.TvHeader.UserBits
 print dpx.raw_header.TvHeader.FrameRate
 
-dpx.tv_header.set_timecode("01:23:45:12")
-
+print "test"
+print dpx.tv_header.timecode
+dpx.tv_header.timecode ="01:23:45:12"
+print dpx.tv_header.timecode
 # change orientation
 dpx.raw_header.ImageHeader.Orientation =2
 dpx.save("/root/test.dpx")

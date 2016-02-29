@@ -65,6 +65,13 @@ class _DpxIndustryTelevisionInfoHeader:
 
         return str(timecode_str)
 
+    def set_timecode(self, timecode):
+        timecode = timecode.lower()
+        timecode_hex = "".join(timecode.split(":"))
+        print timecode_hex
+        tc_dpx = int(timecode_hex, 16)
+        self._raw_header.TvHeader.TimeCode = tc_dpx
+
 
 
 class _DpxGenericHeaderBigEndian(ctypes.BigEndianStructure):

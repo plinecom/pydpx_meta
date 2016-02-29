@@ -1,5 +1,3 @@
-# import os.path
-# import sys
 import ctypes
 import shutil
 
@@ -27,7 +25,9 @@ class DpxHeader:
         self.image_header = _DpxGenericImageHeader(self.raw_header)
         self.tv_header = _DpxIndustryTelevisionInfoHeader(self.raw_header)
 
-#        print os.path.getsize(file_path) - sys.getsizeof(header)
+# import os.path
+# import sys
+#       print os.path.getsize(file_path) - sys.getsizeof(header)
 #        print sys.getsizeof(header)
 
     def save(self, file_path=None):
@@ -346,7 +346,6 @@ class _DpxGenericImageElement:
     def descriptor(self, desc):
         if desc in DpxImageElementDescriptor.values:
             self._raw_image_element.Descriptor = desc
-
 
 
 class _DpxGenericImageElementBigEndian(ctypes.BigEndianStructure):

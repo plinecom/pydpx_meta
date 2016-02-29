@@ -198,13 +198,46 @@ class _DpxGenericHeaderBigEndian(ctypes.BigEndianStructure):
         ('Reserved', ctypes.c_char*104)
     ]
 
+
 class DpxImageElementSign:
     def __init__(self):
         pass
-    (
+    values = (
         unsigned_value,
         signed_value
-    ) = range(0, 2)
+    ) = (0, 1)
+
+
+class DpxImageElementDescriptor:
+    def __init__(self):
+        pass
+    values = (
+        User_Defined,
+        Red,
+        Green,
+        Blue,
+        Alpha,
+        Luminance,
+        Chrominance,
+        Depth,
+        Composite_video,
+        RGB,
+        RGBA,
+        ABGR,
+        CbYCrY,
+        CbYaCrYa,
+        CbYCr,
+        CbYCra,
+        User_defined_2_component_element,
+        User_defined_3_component_element,
+        User_defined_4_component_element,
+        User_defined_5_component_element,
+        User_defined_6_component_element,
+        User_defined_7_component_element,
+        User_defined_8_component_element
+
+    ) = (0, 1, 2, 3, 4, 6, 7, 8, 9, 50, 51, 52, 100, 101, 102, 103, 150, 151, 152, 153, 154, 155, 156)
+
 
 class _DpxGenericImageElement:
     def __init__(self, image_element):
@@ -232,6 +265,88 @@ class _DpxGenericImageElement:
     @low_data.setter
     def low_data(self, min_value):
         self._raw_image_element.LowData = min_value
+
+    @property
+    def low_quality(self):
+        return self._raw_image_element.LowQuality
+
+    @low_quality.setter
+    def low_quality(self, quality):
+        self._raw_image_element.LowQuality = quality
+
+    @property
+    def high_data(self):
+        return self._raw_image_element.HighData
+
+    @high_data.setter
+    def high_data(self, max_value):
+        self._raw_image_element.HighData = max_value
+
+    @property
+    def high_quality(self):
+        return self._raw_image_element.HighQuality
+
+    @high_quality.setter
+    def high_quality(self, quality):
+        self._raw_image_element.HighQuality = quality
+
+    @property
+    def descriptor(self):
+        desc = self._raw_image_element.Descriptor
+        if desc == 0:
+            return DpxImageElementDescriptor.User_Defined
+        elif desc == 1:
+            return DpxImageElementDescriptor.Red
+        elif desc == 2:
+            return DpxImageElementDescriptor.Green
+        elif desc == 3:
+            return DpxImageElementDescriptor.Blue
+        elif desc == 4:
+            return DpxImageElementDescriptor.Alpha
+        elif desc == 6:
+            return DpxImageElementDescriptor.Luminance
+        elif desc == 7:
+            return DpxImageElementDescriptor.Chrominance
+        elif desc == 8:
+            return DpxImageElementDescriptor.Depth
+        elif desc == 9:
+            return DpxImageElementDescriptor.Composite_video
+        elif desc == 50:
+            return DpxImageElementDescriptor.RGB
+        elif desc == 51:
+            return DpxImageElementDescriptor.RGBA
+        elif desc == 52:
+            return DpxImageElementDescriptor.ABGR
+        elif desc == 100:
+            return DpxImageElementDescriptor.CbYCrY
+        elif desc == 101:
+            return DpxImageElementDescriptor.CbYaCrYa
+        elif desc == 102:
+            return DpxImageElementDescriptor.CbYCr
+        elif desc == 103:
+            return DpxImageElementDescriptor.CbYCra
+        elif desc == 150:
+            return DpxImageElementDescriptor.User_defined_2_component_element
+        elif desc == 151:
+            return DpxImageElementDescriptor.User_defined_3_component_element
+        elif desc == 152:
+            return DpxImageElementDescriptor.User_defined_4_component_element
+        elif desc == 153:
+            return DpxImageElementDescriptor.User_defined_5_component_element
+        elif desc == 154:
+            return DpxImageElementDescriptor.User_defined_6_component_element
+        elif desc == 155:
+            return DpxImageElementDescriptor.User_defined_7_component_element
+        elif desc == 156:
+            return DpxImageElementDescriptor.User_defined_8_component_element
+        else:
+            return desc
+
+    @descriptor.setter
+    def descriptor(self, desc):
+        if desc in DpxImageElementDescriptor.values:
+            self._raw_image_element.Descriptor = desc
+
 
 
 class _DpxGenericImageElementBigEndian(ctypes.BigEndianStructure):

@@ -50,7 +50,7 @@ class _DpxGenericHeader:
         return str(self._raw_header.FileHeader.Magic)
     @magic.setter
     def magic(self, magic):
-        if magic == "SDPX" or magic == "XPDS"
+        if magic == "SDPX" or magic == "XPDS":
             self._raw_header.FileHeader.Magic = magic
 
     @property

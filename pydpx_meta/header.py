@@ -24,6 +24,7 @@ class DpxHeader:
         self.raw_data = None
 
         self.file_header = _DpxGenericHeader(self.raw_header)
+        self.tv_header = _DpxIndustryTelevisionInfoHeader(self.raw_header)
 
 #        print os.path.getsize(file_path) - sys.getsizeof(header)
 #        print sys.getsizeof(header)
@@ -40,7 +41,6 @@ class DpxHeader:
         fp.close()
 
 
-
 class _DpxGenericHeader:
     def __init__(self, header):
         self._raw_header = header
@@ -53,6 +53,17 @@ class _DpxGenericHeader:
 
     def version(self):
         return str(self._raw_header.FileHeader.Version)
+
+
+class _DpxIndustryTelevisionInfoHeader:
+    def __init__(self, header):
+        self._raw_header = header
+
+    def timecode(self):
+        timecode_tmp = '{0:0>8x}'.format(self._raw_header.TvHeader.TimeCode)
+        timecode_str = timecode_tmp[0:2]+":"+timecode_tmp[2:4]+":"+timecode_tmp[4:6]+":"+timecode_tmp[6:8]
+
+        return str(timecode_str)
 
 
 

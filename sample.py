@@ -1,4 +1,11 @@
 from pydpx_meta import header
+import glob
+files = []
+
+print files
+for file in sorted(files):
+    dpx = header.DpxHeader(file)
+    print dpx.tv_header.timecode()
 
 dpx = header.DpxHeader("/root/V14_37_26_01_v001.0186.dpx")
 print dpx.raw_header.FileHeader.Magic
@@ -28,6 +35,6 @@ print dpx.raw_header.TvHeader.UserBits
 print dpx.raw_header.TvHeader.FrameRate
 
 # change orientation
-dpx.raw_header.ImageHeader.Orientation =2
-dpx.save("/root/test.dpx")
+#dpx.raw_header.ImageHeader.Orientation =2
+#dpx.save("/root/test.dpx")
 

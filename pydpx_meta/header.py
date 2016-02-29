@@ -48,6 +48,7 @@ class _DpxGenericHeader:
     @property
     def magic(self):
         return str(self._raw_header.FileHeader.Magic)
+
     @magic.setter
     def magic(self, magic):
         if magic == "SDPX" or magic == "XPDS":
@@ -56,13 +57,15 @@ class _DpxGenericHeader:
     @property
     def image_offset(self):
         return self._raw_header.FileHeader.ImageOffset
+
     @image_offset.setter
-    def image_offset(self,offset):
+    def image_offset(self, offset):
         self._raw_header.FileHeader.ImageOffset = offset
 
     @property
     def version(self):
         return str(self._raw_header.FileHeader.Version)
+
     @version.setter
     def version(self, ver):
         self._raw_header.FileHeader.Version = ver
@@ -70,6 +73,7 @@ class _DpxGenericHeader:
     @property
     def file_size(self):
         return self._raw_header.FileHeader.FileSize
+
     @file_size.setter
     def file_size(self, size):
         self._raw_header.FileHeader.FileSize = size
@@ -77,6 +81,7 @@ class _DpxGenericHeader:
     @property
     def dit_to_key(self):
         return self._raw_header.FileHeader.DittoKey
+
     @dit_to_key.setter
     def dit_to_key(self, value):
         self._raw_header.FileHeader.DittoKey = value
@@ -84,6 +89,7 @@ class _DpxGenericHeader:
     @property
     def generic_size(self):
         return self._raw_header.FileHeader.GenericSize
+
     @generic_size.setter
     def generic_size(self, size):
         self._raw_header.FileHeader.GenericSize = size
@@ -91,6 +97,7 @@ class _DpxGenericHeader:
     @property
     def industry_size(self):
         return self._raw_header.FileHeader.IndustrySize
+
     @industry_size.setter
     def industry_size(self, size):
         self._raw_header.FileHeader.IndustrySize = size
@@ -98,6 +105,7 @@ class _DpxGenericHeader:
     @property
     def user_size(self):
         return self._raw_header.FileHeader.UserSize
+
     @user_size.setter
     def user_size(self, size):
         self._raw_header.FileHeader.UserSize = size
@@ -105,6 +113,7 @@ class _DpxGenericHeader:
     @property
     def file_name(self):
         return str(self._raw_header.FileHeader.FileName)
+
     @file_name.setter
     def file_name(self, name):
         self._raw_header.FileHeader.FileName = name
@@ -112,6 +121,7 @@ class _DpxGenericHeader:
     @property
     def time_data(self):
         return str(self._raw_header.FileHeader.TimeData)
+
     @time_data.setter
     def time_data(self, time):
         self._raw_header.FileHeader.TimeData = time
@@ -119,6 +129,7 @@ class _DpxGenericHeader:
     @property
     def creator(self):
         return str(self._raw_header.FileHeader.Creator)
+
     @creator.setter
     def creator(self, creator_name):
         self._raw_header.FileHeader.Creator = creator_name
@@ -126,6 +137,7 @@ class _DpxGenericHeader:
     @property
     def project(self):
         return str(self._raw_header.FileHeader.Project)
+
     @project.setter
     def project(self, project_name):
         self._raw_header.FileHeader.Project = project_name
@@ -133,6 +145,7 @@ class _DpxGenericHeader:
     @property
     def copyright(self):
         return str(self._raw_header.FileHeader.Copyright)
+
     @copyright.setter
     def copyright(self, name):
         self._raw_header.FileHeader.Copyright = name
@@ -140,6 +153,7 @@ class _DpxGenericHeader:
     @property
     def encrypt_key(self):
         return self._raw_header.FileHeader.EncryptKey
+
     @encrypt_key.setter
     def encrypt_key(self, key):
         self._raw_header.FileHeader.EncryptKey = key
@@ -148,7 +162,6 @@ class _DpxGenericHeader:
 class _DpxIndustryTelevisionInfoHeader:
     def __init__(self, header):
         self._raw_header = header
-
 
     @property
     def timecode(self):
@@ -163,9 +176,6 @@ class _DpxIndustryTelevisionInfoHeader:
         timecode_hex = "".join(timecode.split(":"))
         tc_dpx = int(timecode_hex, 16)
         self._raw_header.TvHeader.TimeCode = tc_dpx
-
-
-
 
 
 class _DpxGenericHeaderBigEndian(ctypes.BigEndianStructure):
@@ -188,6 +198,28 @@ class _DpxGenericHeaderBigEndian(ctypes.BigEndianStructure):
     ]
 
 
+class _DpxGenericImageElement:
+    def __init__(self, header):
+        self._raw_header = header
+
+    @property
+    def magic(self):
+        return str(self._raw_header.FileHeader.Magic)
+
+    @magic.setter
+    def magic(self, magic):
+        if magic == "SDPX" or magic == "XPDS":
+            self._raw_header.FileHeader.Magic = magic
+
+    @property
+    def image_offset(self):
+        return self._raw_header.FileHeader.ImageOffset
+
+    @image_offset.setter
+    def image_offset(self, offset):
+        self._raw_header.FileHeader.ImageOffset = offset
+
+
 class _DpxGenericImageElementBigEndian(ctypes.BigEndianStructure):
     _fields_ = [
         ('DataSign', ctypes.c_uint32),
@@ -206,6 +238,61 @@ class _DpxGenericImageElementBigEndian(ctypes.BigEndianStructure):
         ('EndOfImagePadding', ctypes.c_uint32),
         ('Description', ctypes.c_char*32)
     ]
+
+
+class DpxImageHeaderOrientaion:
+    def __init__(self):
+        pass
+    (
+        LeftToRight_TopToBottom,
+        RightToLeft_TopToBottom,
+        LeftToRight_BottomToTop,
+        RightToLeft_BottomToTop,
+        TopToBottom_LeftToRight,
+        TopTOBottom_RightToLeft,
+        BottomToTop_LeftToRight,
+        BottomToTop_RightToLeft
+    ) = range(0, 8)
+
+
+class _DpxGenericImageHeader:
+    def __init__(self, header):
+        self._raw_header = header
+
+    @property
+    def orientation(self):
+        orient = self._raw_header.ImageHeader.Orientation
+        if orient == 0:
+            return DpxImageHeaderOrientaion.LeftToRight_TopToBottom
+        elif orient == 1:
+            return DpxImageHeaderOrientaion.RightToLeft_TopToBottom
+        elif orient == 2:
+            return DpxImageHeaderOrientaion.LeftToRight_BottomToTop
+        elif orient == 3:
+            return DpxImageHeaderOrientaion.RightToLeft_BottomToTop
+        elif orient == 4:
+            return DpxImageHeaderOrientaion.TopToBottom_LeftToRight
+        elif orient == 5:
+            return DpxImageHeaderOrientaion.TopTOBottom_RightToLeft
+        elif orient == 6:
+            return DpxImageHeaderOrientaion.BottomToTop_LeftToRight
+        elif orient == 7:
+            return DpxImageHeaderOrientaion.BottomToTop_RightToLeft
+        else:
+            return orient
+
+    @orientation.setter
+    def orientation(self, orient):
+        if 0 <= orient < 8:
+            self._raw_header.ImageHeader.Orientation = orient
+
+    @property
+    def image_offset(self):
+        return self._raw_header.FileHeader.ImageOffset
+
+    @image_offset.setter
+    def image_offset(self, offset):
+        self._raw_header.FileHeader.ImageOffset = offset
 
 
 class _DpxGenericImageHeaderBigEndian(ctypes.BigEndianStructure):
@@ -286,6 +373,7 @@ class _DpxHeaderBigEndian(ctypes.BigEndianStructure):
         ('FilmHeader', _DpxIndustryFilmInfoHeaderBigEndian),
         ('TvHeader', _DpxIndustryTelevisionInfoHeaderBigEndian)
     ]
+
 
 class _DpxGenericHeaderLittleEndian(ctypes.LittleEndianStructure):
     _fields_ = [

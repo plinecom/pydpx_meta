@@ -4,6 +4,7 @@ import ctypes
 class DpxHeader:
     def __init__(self, file_path):
 
+        self._file_path = file_path
         header = _DpxHeaderBigEndian()
 
         fp = open(file_path, "rb")
@@ -14,7 +15,30 @@ class DpxHeader:
             fp = open(file_path, "rb")
             fp.readinto(header)
 
-        self.header = header
+        self.raw_header = header
+
+        self.file_header = _DpxGenericHeader(self.raw_header)
+
+    def save(self, file_path):
+        fp = open(file_path, "wb")
+        fp.write(self.raw_header)
+
+    def save(self):
+        self.save(self._file_path)
+
+
+class _DpxGenericHeader:
+    def __init__(self, header):
+        self._raw_header = header
+
+    def magic(self):
+        return str(self._raw_header.FileHeader.Magic)
+
+    def image_offset(self):
+        return self._raw_header.FileHeader.ImageOffset
+
+    def version(self):
+        return str(self._raw_header.FileHeader.Version)
 
 
 class _DpxGenericHeaderBigEndian(ctypes.BigEndianStructure):

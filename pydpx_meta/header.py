@@ -24,6 +24,7 @@ class DpxHeader:
         self.raw_data = None
 
         self.file_header = _DpxGenericHeader(self.raw_header)
+        self.image_header = _DpxGenericImageHeader(self.raw_header)
         self.tv_header = _DpxIndustryTelevisionInfoHeader(self.raw_header)
 
 #        print os.path.getsize(file_path) - sys.getsizeof(header)
@@ -197,27 +198,40 @@ class _DpxGenericHeaderBigEndian(ctypes.BigEndianStructure):
         ('Reserved', ctypes.c_char*104)
     ]
 
+class DpxImageElementSign:
+    def __init__(self):
+        pass
+    (
+        unsigned_value,
+        signed_value
+    ) = range(0, 2)
 
 class _DpxGenericImageElement:
-    def __init__(self, header):
-        self._raw_header = header
+    def __init__(self, image_element):
+        self._raw_image_element = image_element
 
     @property
-    def magic(self):
-        return str(self._raw_header.FileHeader.Magic)
+    def data_sign(self):
+        sign = self._raw_image_element.DataSign
+        if sign == 0:
+            return DpxImageElementSign.unsigned_value
+        elif sign == 1:
+            return DpxImageElementSign.signed_value
+        else:
+            return sign
 
-    @magic.setter
-    def magic(self, magic):
-        if magic == "SDPX" or magic == "XPDS":
-            self._raw_header.FileHeader.Magic = magic
+    @data_sign.setter
+    def data_sign(self, sign):
+        if 0 <= sign <= 1:
+            self._raw_image_element.DataSign = sign
 
     @property
-    def image_offset(self):
-        return self._raw_header.FileHeader.ImageOffset
+    def low_data(self):
+        return self._raw_image_element.LowData
 
-    @image_offset.setter
-    def image_offset(self, offset):
-        self._raw_header.FileHeader.ImageOffset = offset
+    @low_data.setter
+    def low_data(self, min_value):
+        self._raw_image_element.LowData = min_value
 
 
 class _DpxGenericImageElementBigEndian(ctypes.BigEndianStructure):
@@ -258,6 +272,9 @@ class DpxImageHeaderOrientaion:
 class _DpxGenericImageHeader:
     def __init__(self, header):
         self._raw_header = header
+        self.image_element = []
+        for i in range(0, 8):
+            self.image_element.append(_DpxGenericImageElement(self._raw_header.ImageHeader.ImageElement[i]))
 
     @property
     def orientation(self):
@@ -287,12 +304,29 @@ class _DpxGenericImageHeader:
             self._raw_header.ImageHeader.Orientation = orient
 
     @property
-    def image_offset(self):
-        return self._raw_header.FileHeader.ImageOffset
+    def number_elements(self):
+        return self._raw_header.ImageHeader.NumberElements
 
-    @image_offset.setter
-    def image_offset(self, offset):
-        self._raw_header.FileHeader.ImageOffset = offset
+    @number_elements.setter
+    def number_elements(self, num):
+        if 0 <= num <= 8:
+            self._raw_header.ImageHeader.NumberElements = num
+
+    @property
+    def pixels_per_line(self):
+        return self._raw_header.ImageHeader.PixelsPerLine
+
+    @pixels_per_line.setter
+    def pixels_per_line(self, pixels):
+        self._raw_header.ImageHeader.PixelsPerLine = pixels
+
+    @property
+    def lines_per_element(self):
+        return self._raw_header.ImageHeader.LinesPerElement
+
+    @lines_per_element.setter
+    def lines_per_element(self, lines):
+        self._raw_header.ImageHeader.LinesPerElement = lines
 
 
 class _DpxGenericImageHeaderBigEndian(ctypes.BigEndianStructure):

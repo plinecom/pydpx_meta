@@ -1,8 +1,5 @@
 from pydpx_meta import header
 
-fpw = open("/root/test.dpx","wb")
-# read magic
-
 dpx = header.DpxHeader("/root/V14_37_26_01_v001.0186.dpx")
 print dpx.raw_header.FileHeader.Magic
 print dpx.file_header.magic()
@@ -30,5 +27,7 @@ print timecode_str
 print dpx.raw_header.TvHeader.UserBits
 print dpx.raw_header.TvHeader.FrameRate
 
+# change orientation
+dpx.raw_header.ImageHeader.Orientation =2
+dpx.save("/root/test.dpx")
 
-fpw.write(dpx.raw_header)

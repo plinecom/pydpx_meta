@@ -1,4 +1,7 @@
+# import os.path
+# import sys
 import ctypes
+import shutil
 
 
 class DpxHeader:
@@ -9,22 +12,33 @@ class DpxHeader:
 
         fp = open(file_path, "rb")
         fp.readinto(header)
+        fp.close()
 
         if header.FileHeader.Magic != 'SDPX':
             header = _DpxHeaderLittleEndian()
             fp = open(file_path, "rb")
             fp.readinto(header)
+            fp.close()
 
         self.raw_header = header
+        self.raw_data = None
 
         self.file_header = _DpxGenericHeader(self.raw_header)
 
-    def save(self, file_path):
-        fp = open(file_path, "wb")
-        fp.write(self.raw_header)
+#        print os.path.getsize(file_path) - sys.getsizeof(header)
+#        print sys.getsizeof(header)
 
-    def save(self):
-        self.save(self._file_path)
+    def save(self, file_path=None):
+        if file_path is None:
+            file_path = self._file_path
+
+        if self._file_path != file_path:
+            shutil.copyfile(self._file_path, file_path)
+
+        fp = open(file_path, "rb+")
+        fp.write(self.raw_header)
+        fp.close()
+
 
 
 class _DpxGenericHeader:
@@ -39,6 +53,7 @@ class _DpxGenericHeader:
 
     def version(self):
         return str(self._raw_header.FileHeader.Version)
+
 
 
 class _DpxGenericHeaderBigEndian(ctypes.BigEndianStructure):

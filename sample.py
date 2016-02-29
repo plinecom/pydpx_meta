@@ -21,7 +21,10 @@ print dpx.header.ImageHeader.ImageElement[0].Description
 print dpx.header.OrientHeader.XOriginalSize
 print dpx.header.OrientHeader.YOriginalSize
 print dpx.header.TvHeader.TimeCode
-print '{0:0>30x}'.format(dpx.header.TvHeader.TimeCode)
+print '{0:0>8x}'.format(dpx.header.TvHeader.TimeCode)
+timecode_tmp = '{0:0>8x}'.format(dpx.header.TvHeader.TimeCode)
+timecode_str = timecode_tmp[0:2]+":"+timecode_tmp[2:4]+":"+timecode_tmp[4:6]+":"+timecode_tmp[6:8]
+print timecode_str
 print dpx.header.TvHeader.UserBits
 print dpx.header.TvHeader.FrameRate
 

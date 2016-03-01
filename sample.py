@@ -7,7 +7,8 @@ for file in sorted(files):
     dpx = header.DpxHeader(file)
     print dpx.tv_header.timecode()
 
-dpx = header.DpxHeader("/root/V14_37_26_01_v001.0186.dpx")
+#dpx = header.DpxHeader("/root/V14_37_26_01_v001.0186.dpx")
+dpx = header.DpxHeader()
 print dpx.raw_header.FileHeader.Magic
 print dpx.file_header.magic
 print dpx.raw_header.FileHeader.ImageOffset
@@ -24,6 +25,7 @@ print dpx.raw_header.FileHeader.Project
 print dpx.raw_header.ImageHeader.Orientation
 print dpx.raw_header.ImageHeader.NumberElements
 print dpx.raw_header.ImageHeader.ImageElement[0].Description
+print dpx.image_header.image_element[0].data_sign
 print dpx.raw_header.OrientHeader.XOriginalSize
 print dpx.raw_header.OrientHeader.YOriginalSize
 print dpx.raw_header.TvHeader.TimeCode
@@ -40,5 +42,5 @@ dpx.tv_header.timecode ="01:23:45:12"
 print dpx.tv_header.timecode
 # change orientation
 dpx.raw_header.ImageHeader.Orientation =2
-dpx.save("/root/test.dpx")
+#dpx.save("/root/test.dpx")
 

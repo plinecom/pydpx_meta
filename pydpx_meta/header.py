@@ -3,20 +3,21 @@ import shutil
 
 
 class DpxHeader:
-    def __init__(self, file_path):
+    def __init__(self, file_path=None):
 
         self._file_path = file_path
         header = _DpxHeaderBigEndian()
 
-        fp = open(file_path, "rb")
-        fp.readinto(header)
-        fp.close()
-
-        if header.FileHeader.Magic != 'SDPX':
-            header = _DpxHeaderLittleEndian()
+        if file_path is not None:
             fp = open(file_path, "rb")
             fp.readinto(header)
             fp.close()
+
+            if header.FileHeader.Magic != 'SDPX':
+                header = _DpxHeaderLittleEndian()
+                fp = open(file_path, "rb")
+                fp.readinto(header)
+                fp.close()
 
         self.raw_header = header
         self.raw_data = None

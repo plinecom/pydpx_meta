@@ -655,6 +655,142 @@ class _DpxGenericImageHeaderBigEndian(ctypes.BigEndianStructure):
     ]
 
 
+class _DpxGenericOrientationHeader:
+    def __init__(self, header):
+        self._raw_header = header
+        self.image_element = []
+        for i in range(0, 8):
+            self.image_element.append(_DpxGenericImageElement(self._raw_header.ImageHeader.ImageElement[i]))
+
+    @property
+    def x_offset(self):
+        return self._raw_header.OrientHeader.XOffset
+
+    @x_offset.setter
+    def x_offset(self, pixels):
+        self._raw_header.OrientHeader.XOffset = pixels
+
+    @property
+    def y_offset(self):
+        return self._raw_header.OrientHeader.YOffset
+
+    @y_offset.setter
+    def y_offset(self, pixels):
+        self._raw_header.OrientHeader.YOffset = pixels
+
+    @property
+    def x_center(self):
+        return self._raw_header.OrientHeader.XCenter
+
+    @x_center.setter
+    def x_center(self, position):
+        self._raw_header.OrientHeader.XCenter = position
+
+    @property
+    def y_center(self):
+        return self._raw_header.OrientHeader.YCenter
+
+    @y_center.setter
+    def y_center(self, position):
+        self._raw_header.OrientHeader.YCenter = position
+
+    @property
+    def x_original_size(self):
+        return self._raw_header.OrientHeader.XOriginalSize
+
+    @x_original_size.setter
+    def x_original_size(self, size):
+        self._raw_header.OrientHeader.XOriginalSize = size
+
+    @property
+    def y_original_size(self):
+        return self._raw_header.OrientHeader.YOriginalSize
+
+    @y_original_size.setter
+    def y_original_size(self, size):
+        self._raw_header.OrientHeader.YOriginalSize = size
+
+    @property
+    def file_name(self):
+        return str(self._raw_header.OrientHeader.FileName)
+
+    @file_name.setter
+    def file_name(self, name):
+        self._raw_header.OrientHeader.FileName = name
+
+    @property
+    def time_data(self):
+        return str(self._raw_header.OrientHeader.TimeData)
+
+    @time_data.setter
+    def time_data(self, time_str):
+        self._raw_header.OrientHeader.FileName = time_str
+
+    @property
+    def input_name(self):
+        return str(self._raw_header.OrientHeader.InputName)
+
+    @input_name.setter
+    def input_name(self, name):
+        self._raw_header.OrientHeader.InputName = name
+
+    @property
+    def input_sn(self):
+        return str(self._raw_header.OrientHeader.InputSN)
+
+    @input_sn.setter
+    def input_sn(self, sn_str):
+        self._raw_header.OrientHeader.InputSN = sn_str
+
+    @property
+    def border_x_left(self):
+        return self._raw_header.OrientHeader.Border[0]
+
+    @border_x_left.setter
+    def border_x_left(self, x_left):
+        self._raw_header.OrientHeader.Border[0] = x_left
+
+    @property
+    def border_x_right(self):
+        return self._raw_header.OrientHeader.Border[1]
+
+    @border_x_right.setter
+    def border_x_right(self, x_right):
+        self._raw_header.OrientHeader.Border[1] = x_right
+
+    @property
+    def border_y_top(self):
+        return self._raw_header.OrientHeader.Border[2]
+
+    @border_y_top.setter
+    def border_y_top(self, y_top):
+        self._raw_header.OrientHeader.Border[2] = y_top
+
+    @property
+    def border_y_bottom(self):
+        return self._raw_header.OrientHeader.Border[3]
+
+    @border_y_bottom.setter
+    def border_y_bottom(self, y_bottom):
+        self._raw_header.OrientHeader.Border[3] = y_bottom
+
+    @property
+    def aspect_ratio_h(self):
+        return self._raw_header.OrientHeader.AspectRatio[0]
+
+    @aspect_ratio_h.setter
+    def aspect_ratio_h(self, aspect_h):
+        self._raw_header.OrientHeader.AspectRatio[0] = aspect_h
+
+    @property
+    def aspect_ratio_v(self):
+        return self._raw_header.OrientHeader.AspectRatio[1]
+
+    @aspect_ratio_v.setter
+    def aspect_ratio_v(self, aspect_v):
+        self._raw_header.OrientHeader.AspectRatio[1] = aspect_v
+
+
 class _DpxGenericOrientationHeaderBigEndian(ctypes.BigEndianStructure):
     _fields_ = [
         ('XOffset', ctypes.c_uint32),

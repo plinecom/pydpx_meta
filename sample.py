@@ -1,14 +1,15 @@
 from pydpx_meta import header
+import pydpx_meta
 import glob
 files = []
 
 print files
 for file in sorted(files):
-    dpx = header.DpxHeader(file)
+    dpx = pydpx_meta.DpxHeader(file)
     print dpx.tv_header.timecode()
 
 #dpx = header.DpxHeader("/root/V14_37_26_01_v001.0186.dpx")
-dpx = header.DpxHeader()
+dpx = pydpx_meta.DpxHeader()
 print dpx.raw_header.FileHeader.Magic
 print dpx.file_header.magic
 print dpx.raw_header.FileHeader.ImageOffset

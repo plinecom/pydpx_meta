@@ -1,46 +1,6 @@
 import ctypes
-import shutil
 
 
-class DpxHeader:
-    def __init__(self, file_path=None):
-
-        self._file_path = file_path
-        header = _DpxHeaderBigEndian()
-
-        if file_path is not None:
-            fp = open(file_path, "rb")
-            fp.readinto(header)
-            fp.close()
-
-            if header.FileHeader.Magic != 'SDPX':
-                header = _DpxHeaderLittleEndian()
-                fp = open(file_path, "rb")
-                fp.readinto(header)
-                fp.close()
-
-        self.raw_header = header
-        self.raw_data = None
-
-        self.file_header = _DpxGenericHeader(self.raw_header)
-        self.image_header = _DpxGenericImageHeader(self.raw_header)
-        self.tv_header = _DpxIndustryTelevisionInfoHeader(self.raw_header)
-
-    # import os.path
-    # import sys
-    #       print os.path.getsize(file_path) - sys.getsizeof(header)
-    #        print sys.getsizeof(header)
-
-    def save(self, file_path=None):
-        if file_path is None:
-            file_path = self._file_path
-
-        if self._file_path != file_path:
-            shutil.copyfile(self._file_path, file_path)
-
-        fp = open(file_path, "rb+")
-        fp.write(self.raw_header)
-        fp.close()
 
 
 class _DpxGenericHeader:

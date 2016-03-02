@@ -1,3 +1,5 @@
+import low_header_big_endian
+import low_header_little_endian
 import header
 import shutil
 
@@ -6,7 +8,7 @@ class DpxHeader:
     def __init__(self, file_path=None):
 
         self._file_path = file_path
-        _header = header._DpxHeaderBigEndian()
+        _header = low_header_big_endian.DpxHeaderBigEndian()
 
         if file_path is not None:
             fp = open(file_path, "rb")
@@ -14,9 +16,9 @@ class DpxHeader:
             fp.close()
 
             if _header.FileHeader.Magic != 'SDPX':
-                _header = header._DpxHeaderLittleEndian()
+                _header = low_header_little_endian.DpxHeaderLittleEndian()
                 fp = open(file_path, "rb")
-                fp.readinto(header)
+                fp.readinto(_header)
                 fp.close()
 
         self.raw_header = _header

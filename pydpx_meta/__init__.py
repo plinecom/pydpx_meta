@@ -26,6 +26,7 @@ class DpxHeader:
 
         self.file_header = header._DpxGenericHeader(self.raw_header)
         self.image_header = header._DpxGenericImageHeader(self.raw_header)
+        self.film_header = header._DpxIndustryFilmInfoHeader(self.raw_header)
         self.tv_header = header._DpxIndustryTelevisionInfoHeader(self.raw_header)
 
     # import os.path

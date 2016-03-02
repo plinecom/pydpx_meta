@@ -676,6 +676,37 @@ class _DpxGenericOrientationHeader:
         self._raw_header.OrientHeader.AspectRatio[1] = aspect_v
 
 
+class _DpxIndustryFilmInfoHeader:
+    def __init__(self, header):
+        self._raw_header = header
+
+    @property
+    def film_mfg_id(self):
+        return str(self._raw_header.FilmHeader.FilmMfgId)
+
+    @film_mfg_id.setter
+    def film_mfg_id(self, id_str):
+        self._raw_header.FilmHeader.FilmMfgId = id_str
+
+    @property
+    def film_type(self):
+        return str(self._raw_header.FilmHeader.FilmType)
+
+    @film_type.setter
+    def film_type(self, type_str):
+        self._raw_header.FilmHeader.FilmType = type_str
+
+    @property
+    def offset(self):
+        return str(self._raw_header.FilmHeader.Offset)
+
+    @offset.setter
+    def offset(self, film_perforations_offset_str):
+        self._raw_header.FilmHeader.Offset = film_perforations_offset_str
+
+
+
+
 class DpxIndustryTelevisionInfoHeaderInterlace:
     def __init__(self):
         pass

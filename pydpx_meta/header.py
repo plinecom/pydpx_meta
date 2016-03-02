@@ -26,10 +26,10 @@ class DpxHeader:
         self.image_header = _DpxGenericImageHeader(self.raw_header)
         self.tv_header = _DpxIndustryTelevisionInfoHeader(self.raw_header)
 
-# import os.path
-# import sys
-#       print os.path.getsize(file_path) - sys.getsizeof(header)
-#        print sys.getsizeof(header)
+    # import os.path
+    # import sys
+    #       print os.path.getsize(file_path) - sys.getsizeof(header)
+    #        print sys.getsizeof(header)
 
     def save(self, file_path=None):
         if file_path is None:
@@ -168,7 +168,7 @@ class _DpxIndustryTelevisionInfoHeader:
     @property
     def timecode(self):
         timecode_tmp = '{0:0>8x}'.format(self._raw_header.TvHeader.TimeCode)
-        timecode_str = timecode_tmp[0:2]+":"+timecode_tmp[2:4]+":"+timecode_tmp[4:6]+":"+timecode_tmp[6:8]
+        timecode_str = timecode_tmp[0:2] + ":" + timecode_tmp[2:4] + ":" + timecode_tmp[4:6] + ":" + timecode_tmp[6:8]
 
         return str(timecode_str)
 
@@ -182,27 +182,28 @@ class _DpxIndustryTelevisionInfoHeader:
 
 class _DpxGenericHeaderBigEndian(ctypes.BigEndianStructure):
     _fields_ = [
-        ('Magic', ctypes.c_char*4),
+        ('Magic', ctypes.c_char * 4),
         ('ImageOffset', ctypes.c_uint32),
-        ('Version', ctypes.c_char*8),
+        ('Version', ctypes.c_char * 8),
         ('FileSize', ctypes.c_uint32),
         ('DittoKey', ctypes.c_uint32),
         ('GenericSize', ctypes.c_uint32),
         ('IndustrySize', ctypes.c_uint32),
         ('UserSize', ctypes.c_uint32),
-        ('FileName', ctypes.c_char*100),
-        ('TimeData', ctypes.c_char*24),
-        ('Creator', ctypes.c_char*100),
-        ('Project', ctypes.c_char*200),
-        ('Copyright', ctypes.c_char*200),
+        ('FileName', ctypes.c_char * 100),
+        ('TimeData', ctypes.c_char * 24),
+        ('Creator', ctypes.c_char * 100),
+        ('Project', ctypes.c_char * 200),
+        ('Copyright', ctypes.c_char * 200),
         ('EncryptKey', ctypes.c_uint32),
-        ('Reserved', ctypes.c_char*104)
+        ('Reserved', ctypes.c_char * 104)
     ]
 
 
 class DpxImageElementSign:
     def __init__(self):
         pass
+
     values = (
         unsigned_value,
         signed_value
@@ -212,6 +213,7 @@ class DpxImageElementSign:
 class DpxImageElementDescriptor:
     def __init__(self):
         pass
+
     values = (
         User_Defined,
         Red,
@@ -243,6 +245,7 @@ class DpxImageElementDescriptor:
 class DpxImageElementTransfer:
     def __init__(self):
         pass
+
     values = (
         User_defined,
         Printing_density,
@@ -263,6 +266,7 @@ class DpxImageElementTransfer:
 class DpxImageElementColorimetric:
     def __init__(self):
         pass
+
     values = (
         User_defined,
         Printing_density,
@@ -275,6 +279,26 @@ class DpxImageElementColorimetric:
         PAL_composite_video
 
     ) = (0, 1, 4, 5, 6, 7, 8, 9, 10)
+
+
+class DpxImageElementEncoding:
+    def __init__(self):
+        pass
+
+    values = (
+        not_encoded,
+        run_length_encoded
+    ) = (0, 1)
+
+
+class DpxImageElementPacking:
+    def __init__(self):
+        pass
+
+    values = (
+        packed32bit,
+        filled32bit
+    ) = (0, 1)
 
 
 class _DpxGenericImageElement:
@@ -383,7 +407,7 @@ class _DpxGenericImageElement:
     @descriptor.setter
     def descriptor(self, desc):
         if desc in DpxImageElementDescriptor.values:
-            self._raw_image_element.Descriptor = desc\
+            self._raw_image_element.Descriptor = desc
 
     @property
     def transfer(self):
@@ -422,6 +446,107 @@ class _DpxGenericImageElement:
         if description in DpxImageElementTransfer.values:
             self._raw_image_element.Transfer = description
 
+    @property
+    def colorimetric(self):
+
+        metric = self._raw_image_element.Colorimetric
+        if metric == 0:
+            return DpxImageElementColorimetric.User_defined
+        elif metric == 1:
+            return DpxImageElementColorimetric.Printing_density
+        elif metric == 4:
+            return DpxImageElementColorimetric.Unspecified_video
+        elif metric == 5:
+            return DpxImageElementColorimetric.SMPTE_240M
+        elif metric == 6:
+            return DpxImageElementColorimetric.CCIR_709_1
+        elif metric == 7:
+            return DpxImageElementColorimetric.CCIR_601_2_system_B_or_G
+        elif metric == 8:
+            return DpxImageElementColorimetric.CCIR_601_2_system_M
+        elif metric == 9:
+            return DpxImageElementColorimetric.NTSC_composite_video
+        elif metric == 10:
+            return DpxImageElementColorimetric.PAL_composite_video
+        else:
+            return metric
+
+    @colorimetric.setter
+    def colorimetric(self, metric):
+        if metric in DpxImageElementColorimetric.values:
+            self._raw_image_element.Colorimetric = metric
+
+    @property
+    def bit_size(self):
+        return self._raw_image_element.BitSize
+
+    @bit_size.setter
+    def bit_size(self, bit):
+        if bit in (1, 8, 10, 12, 16, 32, 64):
+            self._raw_image_element.BitSize = bit
+
+    @property
+    def packing(self):
+        packing_type = self._raw_image_element.Packing
+        if packing_type == 0:
+            return DpxImageElementPacking.packed32bit
+        elif packing_type == 1:
+            return DpxImageElementPacking.filled32bit
+        else:
+            return packing_type
+
+    @packing.setter
+    def packing(self, packing_type):
+        if packing_type in DpxImageElementPacking.values:
+            self._raw_image_element.Packing = packing_type
+
+    @property
+    def encoding(self):
+        packing_type = self._raw_image_element.Encoding
+        if packing_type == 0:
+            return DpxImageElementEncoding.not_encoded
+        elif packing_type == 1:
+            return DpxImageElementEncoding.run_length_encoded
+        else:
+            return packing_type
+
+    @packing.setter
+    def packing(self, encoding_type):
+        if encoding_type in DpxImageElementEncoding.values:
+            self._raw_image_element.Encoding = encoding_type
+
+    @property
+    def data_offset(self):
+        return self._raw_image_element.DataOffset
+
+    @data_offset.setter
+    def data_offset(self, offset_byte):
+        self._raw_image_element.DataOffset = offset_byte
+
+    @property
+    def end_of_line_padding(self):
+        return self._raw_image_element.EndOfLinePadding
+
+    @end_of_line_padding.setter
+    def end_of_line_padding(self, padding_byte):
+        self._raw_image_element.EndOfLinePadding = padding_byte
+
+    @property
+    def end_of_image_padding(self):
+        return self._raw_image_element.EndOfImagePadding
+
+    @end_of_image_padding.setter
+    def end_of_image_padding(self, padding_byte):
+        self._raw_image_element.EndOfImagePadding = padding_byte
+
+    @property
+    def description(self):
+        return str(self._raw_image_element.Description)
+
+    @description.setter
+    def description(self, text):
+        self._raw_image_element.Description = text
+
 
 class _DpxGenericImageElementBigEndian(ctypes.BigEndianStructure):
     _fields_ = [
@@ -439,13 +564,14 @@ class _DpxGenericImageElementBigEndian(ctypes.BigEndianStructure):
         ('DataOffset', ctypes.c_uint32),
         ('EndOfLinePadding', ctypes.c_uint32),
         ('EndOfImagePadding', ctypes.c_uint32),
-        ('Description', ctypes.c_char*32)
+        ('Description', ctypes.c_char * 32)
     ]
 
 
 class DpxImageHeaderOrientaion:
     def __init__(self):
         pass
+
     (
         LeftToRight_TopToBottom,
         RightToLeft_TopToBottom,
@@ -524,8 +650,8 @@ class _DpxGenericImageHeaderBigEndian(ctypes.BigEndianStructure):
         ('NumberElements', ctypes.c_uint16),
         ('PixelsPerLine', ctypes.c_uint32),
         ('LinesPerElement', ctypes.c_uint32),
-        ('ImageElement', _DpxGenericImageElementBigEndian*8),
-        ('Reserved', ctypes.c_char*52)
+        ('ImageElement', _DpxGenericImageElementBigEndian * 8),
+        ('Reserved', ctypes.c_char * 52)
     ]
 
 
@@ -537,32 +663,32 @@ class _DpxGenericOrientationHeaderBigEndian(ctypes.BigEndianStructure):
         ('YCenter', ctypes.c_float),
         ('XOriginalSize', ctypes.c_uint32),
         ('YOriginalSize', ctypes.c_uint32),
-        ('FileName', ctypes.c_char*100),
-        ('TimeData', ctypes.c_char*24),
-        ('InputName', ctypes.c_char*32),
-        ('InputSN', ctypes.c_char*32),
-        ('Border', ctypes.c_uint16*4),
-        ('AspectRatio', ctypes.c_uint32*2),
-        ('Reserved', ctypes.c_byte*28)
+        ('FileName', ctypes.c_char * 100),
+        ('TimeData', ctypes.c_char * 24),
+        ('InputName', ctypes.c_char * 32),
+        ('InputSN', ctypes.c_char * 32),
+        ('Border', ctypes.c_uint16 * 4),
+        ('AspectRatio', ctypes.c_uint32 * 2),
+        ('Reserved', ctypes.c_byte * 28)
     ]
 
 
 class _DpxIndustryFilmInfoHeaderBigEndian(ctypes.BigEndianStructure):
     _fields_ = [
-        ('FilmMfgId', ctypes.c_char*2),
-        ('FilmType', ctypes.c_char*2),
-        ('Offset', ctypes.c_char*2),
-        ('Prefix', ctypes.c_char*6),
-        ('Count', ctypes.c_char*4),
-        ('Format', ctypes.c_char*32),
+        ('FilmMfgId', ctypes.c_char * 2),
+        ('FilmType', ctypes.c_char * 2),
+        ('Offset', ctypes.c_char * 2),
+        ('Prefix', ctypes.c_char * 6),
+        ('Count', ctypes.c_char * 4),
+        ('Format', ctypes.c_char * 32),
         ('FramePosition', ctypes.c_uint32),
         ('SequenceLen', ctypes.c_uint32),
         ('HeldCount', ctypes.c_uint32),
         ('FrameRate', ctypes.c_float),
         ('ShutterAngle', ctypes.c_float),
-        ('FrameId', ctypes.c_char*32),
-        ('SlateInfo', ctypes.c_char*100),
-        ('Reserved', ctypes.c_byte*56)
+        ('FrameId', ctypes.c_char * 32),
+        ('SlateInfo', ctypes.c_char * 100),
+        ('Reserved', ctypes.c_byte * 56)
     ]
 
 
@@ -584,7 +710,7 @@ class _DpxIndustryTelevisionInfoHeaderBigEndian(ctypes.BigEndianStructure):
         ('Breakpoint', ctypes.c_float),
         ('WhiteLevel', ctypes.c_float),
         ('IntegrationTimes', ctypes.c_float),
-        ('Reserved', ctypes.c_byte*76)
+        ('Reserved', ctypes.c_byte * 76)
     ]
 
 
@@ -600,21 +726,21 @@ class _DpxHeaderBigEndian(ctypes.BigEndianStructure):
 
 class _DpxGenericHeaderLittleEndian(ctypes.LittleEndianStructure):
     _fields_ = [
-        ('Magic', ctypes.c_char*4),
+        ('Magic', ctypes.c_char * 4),
         ('ImageOffset', ctypes.c_uint32),
-        ('Version', ctypes.c_char*8),
+        ('Version', ctypes.c_char * 8),
         ('FileSize', ctypes.c_uint32),
         ('DittoKey', ctypes.c_uint32),
         ('GenericSize', ctypes.c_uint32),
         ('IndustrySize', ctypes.c_uint32),
         ('UserSize', ctypes.c_uint32),
-        ('FileName', ctypes.c_char*100),
-        ('TimeData', ctypes.c_char*24),
-        ('Creator', ctypes.c_char*100),
-        ('Project', ctypes.c_char*200),
-        ('Copyright', ctypes.c_char*200),
+        ('FileName', ctypes.c_char * 100),
+        ('TimeData', ctypes.c_char * 24),
+        ('Creator', ctypes.c_char * 100),
+        ('Project', ctypes.c_char * 200),
+        ('Copyright', ctypes.c_char * 200),
         ('EncryptKey', ctypes.c_uint32),
-        ('Reserved', ctypes.c_char*104)
+        ('Reserved', ctypes.c_char * 104)
     ]
 
 
@@ -634,7 +760,7 @@ class _DpxGenericImageElementLittleEndian(ctypes.LittleEndianStructure):
         ('DataOffset', ctypes.c_uint32),
         ('EndOfLinePadding', ctypes.c_uint32),
         ('EndOfImagePadding', ctypes.c_uint32),
-        ('Description', ctypes.c_char*32)
+        ('Description', ctypes.c_char * 32)
     ]
 
 
@@ -644,8 +770,8 @@ class _DpxGenericImageHeaderLittleEndian(ctypes.LittleEndianStructure):
         ('NumberElements', ctypes.c_uint16),
         ('PixelsPerLine', ctypes.c_uint32),
         ('LinesPerElement', ctypes.c_uint32),
-        ('ImageElement', _DpxGenericImageElementLittleEndian*8),
-        ('Reserved', ctypes.c_char*52)
+        ('ImageElement', _DpxGenericImageElementLittleEndian * 8),
+        ('Reserved', ctypes.c_char * 52)
     ]
 
 
@@ -657,32 +783,32 @@ class _DpxGenericOrientationHeaderLittleEndian(ctypes.LittleEndianStructure):
         ('YCenter', ctypes.c_float),
         ('XOriginalSize', ctypes.c_uint32),
         ('YOriginalSize', ctypes.c_uint32),
-        ('FileName', ctypes.c_char*100),
-        ('TimeData', ctypes.c_char*24),
-        ('InputName', ctypes.c_char*32),
-        ('InputSN', ctypes.c_char*32),
-        ('Border', ctypes.c_uint16*4),
-        ('AspectRatio', ctypes.c_uint32*2),
-        ('Reserved', ctypes.c_byte*28)
+        ('FileName', ctypes.c_char * 100),
+        ('TimeData', ctypes.c_char * 24),
+        ('InputName', ctypes.c_char * 32),
+        ('InputSN', ctypes.c_char * 32),
+        ('Border', ctypes.c_uint16 * 4),
+        ('AspectRatio', ctypes.c_uint32 * 2),
+        ('Reserved', ctypes.c_byte * 28)
     ]
 
 
 class _DpxIndustryFilmInfoHeaderLittleEndian(ctypes.LittleEndianStructure):
     _fields_ = [
-        ('FilmMfgId', ctypes.c_char*2),
-        ('FilmType', ctypes.c_char*2),
-        ('Offset', ctypes.c_char*2),
-        ('Prefix', ctypes.c_char*6),
-        ('Count', ctypes.c_char*4),
-        ('Format', ctypes.c_char*32),
+        ('FilmMfgId', ctypes.c_char * 2),
+        ('FilmType', ctypes.c_char * 2),
+        ('Offset', ctypes.c_char * 2),
+        ('Prefix', ctypes.c_char * 6),
+        ('Count', ctypes.c_char * 4),
+        ('Format', ctypes.c_char * 32),
         ('FramePosition', ctypes.c_uint32),
         ('SequenceLen', ctypes.c_uint32),
         ('HeldCount', ctypes.c_uint32),
         ('FrameRate', ctypes.c_float),
         ('ShutterAngle', ctypes.c_float),
-        ('FrameId', ctypes.c_char*32),
-        ('SlateInfo', ctypes.c_char*100),
-        ('Reserved', ctypes.c_byte*56)
+        ('FrameId', ctypes.c_char * 32),
+        ('SlateInfo', ctypes.c_char * 100),
+        ('Reserved', ctypes.c_byte * 56)
     ]
 
 
@@ -704,7 +830,7 @@ class _DpxIndustryTelevisionInfoHeaderLittleEndian(ctypes.LittleEndianStructure)
         ('Breakpoint', ctypes.c_float),
         ('WhiteLevel', ctypes.c_float),
         ('IntegrationTimes', ctypes.c_float),
-        ('Reserved', ctypes.c_byte*76)
+        ('Reserved', ctypes.c_byte * 76)
     ]
 
 

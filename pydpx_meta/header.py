@@ -116,25 +116,6 @@ class _DpxGenericHeader:
         self._raw_header.FileHeader.EncryptKey = key
 
 
-class _DpxIndustryTelevisionInfoHeader:
-    def __init__(self, header):
-        self._raw_header = header
-
-    @property
-    def timecode(self):
-        timecode_tmp = '{0:0>8x}'.format(self._raw_header.TvHeader.TimeCode)
-        timecode_str = timecode_tmp[0:2] + ":" + timecode_tmp[2:4] + ":" + timecode_tmp[4:6] + ":" + timecode_tmp[6:8]
-
-        return str(timecode_str)
-
-    @timecode.setter
-    def timecode(self, timecode):
-        timecode = timecode.lower()
-        timecode_hex = "".join(timecode.split(":"))
-        tc_dpx = int(timecode_hex, 16)
-        self._raw_header.TvHeader.TimeCode = tc_dpx
-
-
 class DpxImageElementSign:
     def __init__(self):
         pass
@@ -694,3 +675,21 @@ class _DpxGenericOrientationHeader:
     def aspect_ratio_v(self, aspect_v):
         self._raw_header.OrientHeader.AspectRatio[1] = aspect_v
 
+
+class _DpxIndustryTelevisionInfoHeader:
+    def __init__(self, header):
+        self._raw_header = header
+
+    @property
+    def timecode(self):
+        timecode_tmp = '{0:0>8x}'.format(self._raw_header.TvHeader.TimeCode)
+        timecode_str = timecode_tmp[0:2] + ":" + timecode_tmp[2:4] + ":" + timecode_tmp[4:6] + ":" + timecode_tmp[6:8]
+
+        return str(timecode_str)
+
+    @timecode.setter
+    def timecode(self, timecode):
+        timecode = timecode.lower()
+        timecode_hex = "".join(timecode.split(":"))
+        tc_dpx = int(timecode_hex, 16)
+        self._raw_header.TvHeader.TimeCode = tc_dpx

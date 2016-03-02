@@ -676,6 +676,16 @@ class _DpxGenericOrientationHeader:
         self._raw_header.OrientHeader.AspectRatio[1] = aspect_v
 
 
+class DpxIndustryTelevisionInfoHeaderInterlace:
+    def __init__(self):
+        pass
+
+    values = (
+        not_interlaced,
+        interlaced
+    ) = (0, 1)
+
+
 class _DpxIndustryTelevisionInfoHeader:
     def __init__(self, header):
         self._raw_header = header
@@ -688,8 +698,46 @@ class _DpxIndustryTelevisionInfoHeader:
         return str(timecode_str)
 
     @timecode.setter
-    def timecode(self, timecode):
-        timecode = timecode.lower()
-        timecode_hex = "".join(timecode.split(":"))
+    def timecode(self, time_code):
+        time_code = time_code.lower()
+        timecode_hex = "".join(time_code.split(":"))
         tc_dpx = int(timecode_hex, 16)
         self._raw_header.TvHeader.TimeCode = tc_dpx
+
+    @property
+    def user_bits(self):
+        user_bits_tmp = '{0:0>8x}'.format(self._raw_header.TvHeader.UserBits)
+        timecode_str = user_bits_tmp[0:2] + ":" + user_bits_tmp[2:4] + ":" + user_bits_tmp[4:6] + ":" + user_bits_tmp[6:8]
+
+        return str(timecode_str)
+
+    @user_bits.setter
+    def user_bits(self, bits):
+        bits = bits.lower()
+        bits_hex = "".join(bits.split(":"))
+        user_bits_dpx = int(bits_hex, 16)
+        self._raw_header.TvHeader.UserBits = user_bits_dpx
+
+    @property
+    def interlaced(self):
+        interlace = self._raw_header.TvHeader.Interlace
+        if interlace == 0:
+            return DpxIndustryTelevisionInfoHeaderInterlace.not_interlaced
+        elif interlace == 1:
+            return DpxIndustryTelevisionInfoHeaderInterlace.interlaced
+        else:
+            return interlace
+
+    @interlaced.setter
+    def interlaced(self, interlace):
+        if interlace in DpxIndustryTelevisionInfoHeaderInterlace.values:
+            self._raw_header.TvHeader.Interlace = interlace
+
+    @property
+    def field_number(self):
+        return self._raw_header.TvHeader.FieldNumber
+
+    @field_number.setter
+    def field_number(self, number):
+        self._raw_header.TvHeader.FieldNumber = number
+

@@ -240,6 +240,43 @@ class DpxImageElementDescriptor:
     ) = (0, 1, 2, 3, 4, 6, 7, 8, 9, 50, 51, 52, 100, 101, 102, 103, 150, 151, 152, 153, 154, 155, 156)
 
 
+class DpxImageElementTransfer:
+    def __init__(self):
+        pass
+    values = (
+        User_defined,
+        Printing_density,
+        Linear,
+        Logarithmic,
+        Unspecified_video,
+        SMPTE_240M,
+        CCIR_709_1,
+        CCIR_601_2_system_B_or_G,
+        CCIR_601_2_system_M,
+        NTSC_composite_video,
+        PAL_composite_video,
+        Z_linear,
+        Z_homogeneous
+    ) = (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12)
+
+
+class DpxImageElementColorimetric:
+    def __init__(self):
+        pass
+    values = (
+        User_defined,
+        Printing_density,
+        Unspecified_video,
+        SMPTE_240M,
+        CCIR_709_1,
+        CCIR_601_2_system_B_or_G,
+        CCIR_601_2_system_M,
+        NTSC_composite_video,
+        PAL_composite_video
+
+    ) = (0, 1, 4, 5, 6, 7, 8, 9, 10)
+
+
 class _DpxGenericImageElement:
     def __init__(self, image_element):
         self._raw_image_element = image_element
@@ -346,7 +383,44 @@ class _DpxGenericImageElement:
     @descriptor.setter
     def descriptor(self, desc):
         if desc in DpxImageElementDescriptor.values:
-            self._raw_image_element.Descriptor = desc
+            self._raw_image_element.Descriptor = desc\
+
+    @property
+    def transfer(self):
+        trans = self._raw_image_element.Transfer
+        if trans == 0:
+            return DpxImageElementTransfer.User_defined
+        elif trans == 1:
+            return DpxImageElementTransfer.Printing_density
+        elif trans == 2:
+            return DpxImageElementTransfer.Linear
+        elif trans == 3:
+            return DpxImageElementTransfer.Logarithmic
+        elif trans == 4:
+            return DpxImageElementTransfer.Unspecified_video
+        elif trans == 5:
+            return DpxImageElementTransfer.SMPTE_240M
+        elif trans == 6:
+            return DpxImageElementTransfer.CCIR_709_1
+        elif trans == 7:
+            return DpxImageElementTransfer.CCIR_601_2_system_B_or_G
+        elif trans == 8:
+            return DpxImageElementTransfer.CCIR_601_2_system_M
+        elif trans == 9:
+            return DpxImageElementTransfer.NTSC_composite_video
+        elif trans == 10:
+            return DpxImageElementTransfer.PAL_composite_video
+        elif trans == 11:
+            return DpxImageElementTransfer.Z_linear
+        elif trans == 12:
+            return DpxImageElementTransfer.Z_homogeneous
+        else:
+            return trans
+
+    @transfer.setter
+    def transfer(self, description):
+        if description in DpxImageElementTransfer.values:
+            self._raw_image_element.Transfer = description
 
 
 class _DpxGenericImageElementBigEndian(ctypes.BigEndianStructure):

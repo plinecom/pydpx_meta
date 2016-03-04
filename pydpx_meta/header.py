@@ -704,7 +704,21 @@ class _DpxIndustryFilmInfoHeader:
     def offset(self, film_perforations_offset_str):
         self._raw_header.FilmHeader.Offset = film_perforations_offset_str
 
+    @property
+    def prefix(self):
+        return str(self._raw_header.FilmHeader.Prefix)
 
+    @prefix.setter
+    def prefix(self, prefix_str):
+        self._raw_header.FilmHeader.Prefix = prefix_str
+
+    @property
+    def count(self):
+        return str(self._raw_header.FilmHeader.Count)
+
+    @count.setter
+    def count(self, count_str):
+        self._raw_header.FilmHeader.Count = count_str
 
 
 class DpxIndustryTelevisionInfoHeaderInterlace:

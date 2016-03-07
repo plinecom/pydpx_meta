@@ -720,6 +720,37 @@ class _DpxIndustryFilmInfoHeader:
     def count(self, count_str):
         self._raw_header.FilmHeader.Count = count_str
 
+    @property
+    def format(self):
+        return str(self._raw_header.FilmHeader.Format)
+
+    @format.setter
+    def format(self, format_str):
+        self._raw_header.FilmHeader.Format = format_str
+
+    @property
+    def frame_position(self):
+        return self._raw_header.FilmHeader.FramePosition
+
+    @frame_position.setter
+    def frame_position(self, frame_pos):
+        self._raw_header.FilmHeader.FramePosition = frame_pos
+
+    @property
+    def held_count(self):
+        return self._raw_header.FilmHeader.HeldCount
+
+    @held_count.setter
+    def held_count(self, count):
+        self._raw_header.FilmHeader.HeldCount = count
+
+    @property
+    def frame_rate(self):
+        return self._raw_header.FilmHeader.FrameRate
+
+    @frame_rate.setter
+    def frame_rate(self, fps):
+        self._raw_header.FilmHeader.FrameRate = fps
 
 class DpxIndustryTelevisionInfoHeaderInterlace:
     def __init__(self):

@@ -7,9 +7,11 @@ import shutil
 class DpxHeader:
     def __init__(self, file_path=None):
 
+        self.load(file_path)
+
+    def load(self, file_path):
         self._file_path = file_path
         _header = low_header_big_endian.DpxHeaderBigEndian()
-
         if file_path is not None:
             fp = open(file_path, "rb")
             fp.readinto(_header)

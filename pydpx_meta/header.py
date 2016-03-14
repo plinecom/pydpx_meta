@@ -752,6 +752,31 @@ class _DpxIndustryFilmInfoHeader:
     def frame_rate(self, fps):
         self._raw_header.FilmHeader.FrameRate = fps
 
+    @property
+    def shutter_angle(self):
+        return self._raw_header.FilmHeader.ShutterAngle
+
+    @shutter_angle.setter
+    def shutter_angle(self, degrees):
+        self._raw_header.FilmHeader.ShutterAngle = degrees
+
+    @property
+    def frame_id(self):
+        return str(self._raw_header.FilmHeader.FrameId)
+
+    @frame_id.setter
+    def frame_id(self, id_str):
+        self._raw_header.FilmHeader.FrameId = id_str
+
+    @property
+    def slate_info(self):
+        return str(self._raw_header.FilmHeader.SlateInfo)
+
+    @slate_info.setter
+    def slate_info(self, info_str):
+        self._raw_header.FilmHeader.SlateInfo = info_str
+
+
 class DpxIndustryTelevisionInfoHeaderInterlace:
     def __init__(self):
         pass

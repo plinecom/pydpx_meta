@@ -787,6 +787,28 @@ class DpxIndustryTelevisionInfoHeaderInterlace:
     ) = (0, 1)
 
 
+class DpxIndustryTelevisionInfoHeaderVideoSignalType:
+    def __init__(self):
+        pass
+
+    values = (
+        Undefined,
+        NTSC,
+        PAL,
+        PAL_M,
+        SECAM,
+        YCBCR_CCIR_601_2_525_line_2_1_interlace_4_3_aspect_ratio,
+        YCBCR_CCIR_601_2_625_line_2_1_interlace_4_3_aspect_ratio,
+        YCBCR_CCIR_601_2_525_line_2_1_interlace_16_9_aspect_ratio,
+        YCBCR_CCIR_601_2_625_line_2_1_interlace_16_9_aspect_ratio,
+        YCBCR_CCIR_1050_line_2_1_interlace_16_9_aspect_ratio,
+        YCBCR_CCIR_1125_line_2_1_interlace_16_9_aspect_ratio,
+        YCBCR_CCIR_1250_line_2_1_interlace_16_9_aspect_ratio,
+        YCBCR_525_line_1_1_progressive_16_9_aspect_ratio,
+        YCBCR_625_line_1_1_progressive_16_9_aspect_ratio,
+        YCBCR_787_5_line_1_1_progressive_16_9_aspect_ratio
+    ) = (0, 1, 3, 4, 50, 51, 100, 101, 150, 151, 152, 200, 201, 202,203)
+
 class _DpxIndustryTelevisionInfoHeader:
     def __init__(self, header):
         self._raw_header = header
@@ -842,3 +864,20 @@ class _DpxIndustryTelevisionInfoHeader:
     @field_number.setter
     def field_number(self, number):
         self._raw_header.TvHeader.FieldNumber = number
+
+    @property
+    def video_signal(self):
+        video_signal_type = self._raw_header.TvHeader.VideoSignal
+
+        if video_signal_type == 0:
+            return DpxIndustryTelevisionInfoHeaderVideoSignalType.Undefined
+        elif video_signal_type == 1:
+            return DpxIndustryTelevisionInfoHeaderVideoSignalType.NTSC
+        elif video_signal_type == 2:
+            return DpxIndustryTelevisionInfoHeaderVideoSignalType.PAL
+        elif video_signal_type == 3:
+            return DpxIndustryTelevisionInfoHeaderVideoSignalType.PAL_M
+        elif video_signal_type == 4:
+            return DpxIndustryTelevisionInfoHeaderVideoSignalType.SECAM
+        elif video_signal_type == 50:
+            return DpxIndustryTelevisionInfoHeaderVideoSignalType.YCBCR_CCIR_601_2_525_line_2_1_interlace_4_3_aspect_ratio

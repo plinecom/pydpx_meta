@@ -39,9 +39,9 @@ print dpx.raw_header.TvHeader.UserBits
 print dpx.raw_header.TvHeader.FrameRate
 
 print "test"
-print dpx.tv_header.timecode
+print dpx.tv_header.time_code
 dpx.tv_header.timecode ="01:23:45:12"
-print dpx.tv_header.timecode
+print dpx.tv_header.time_code
 # change orientation
 dpx.raw_header.ImageHeader.Orientation =2
 #dpx.save("/root/test.dpx")

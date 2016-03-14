@@ -792,25 +792,26 @@ class _DpxIndustryTelevisionInfoHeader:
         self._raw_header = header
 
     @property
-    def timecode(self):
-        timecode_tmp = '{0:0>8x}'.format(self._raw_header.TvHeader.TimeCode)
-        timecode_str = timecode_tmp[0:2] + ":" + timecode_tmp[2:4] + ":" + timecode_tmp[4:6] + ":" + timecode_tmp[6:8]
+    def time_code(self):
+        time_code_tmp = '{0:0>8x}'.format(self._raw_header.TvHeader.TimeCode)
+        time_code_str = "{0}:{1}:{2}:{3}".format(time_code_tmp[0:2], time_code_tmp[2:4], time_code_tmp[4:6],
+                                                 time_code_tmp[6:8])
 
-        return str(timecode_str)
+        return str(time_code_str)
 
-    @timecode.setter
-    def timecode(self, time_code):
+    @time_code.setter
+    def time_code(self, time_code):
         time_code = time_code.lower()
-        timecode_hex = "".join(time_code.split(":"))
-        tc_dpx = int(timecode_hex, 16)
+        time_code_hex = "".join(time_code.split(":"))
+        tc_dpx = int(time_code_hex, 16)
         self._raw_header.TvHeader.TimeCode = tc_dpx
 
     @property
     def user_bits(self):
         user_bits_tmp = '{0:0>8x}'.format(self._raw_header.TvHeader.UserBits)
-        timecode_str = user_bits_tmp[0:2] + ":" + user_bits_tmp[2:4] + ":" + user_bits_tmp[4:6] + ":" + user_bits_tmp[6:8]
-
-        return str(timecode_str)
+        user_bits_str = "{0}:{1}:{2}:{3}".format(user_bits_tmp[0:2], user_bits_tmp[2:4], user_bits_tmp[4:6],
+                                                 user_bits_tmp[6:8])
+        return str(user_bits_str)
 
     @user_bits.setter
     def user_bits(self, bits):
@@ -841,4 +842,3 @@ class _DpxIndustryTelevisionInfoHeader:
     @field_number.setter
     def field_number(self, number):
         self._raw_header.TvHeader.FieldNumber = number
-

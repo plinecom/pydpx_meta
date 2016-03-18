@@ -797,17 +797,17 @@ class DpxIndustryTelevisionInfoHeaderVideoSignalType:
         PAL,
         PAL_M,
         SECAM,
-        YCBCR_CCIR_601_2_525_line_2_1_interlace_4_3_aspect_ratio,
-        YCBCR_CCIR_601_2_625_line_2_1_interlace_4_3_aspect_ratio,
-        YCBCR_CCIR_601_2_525_line_2_1_interlace_16_9_aspect_ratio,
-        YCBCR_CCIR_601_2_625_line_2_1_interlace_16_9_aspect_ratio,
-        YCBCR_CCIR_1050_line_2_1_interlace_16_9_aspect_ratio,
-        YCBCR_CCIR_1125_line_2_1_interlace_16_9_aspect_ratio,
-        YCBCR_CCIR_1250_line_2_1_interlace_16_9_aspect_ratio,
-        YCBCR_525_line_1_1_progressive_16_9_aspect_ratio,
-        YCBCR_625_line_1_1_progressive_16_9_aspect_ratio,
-        YCBCR_787_5_line_1_1_progressive_16_9_aspect_ratio
-    ) = (0, 1, 3, 4, 50, 51, 100, 101, 150, 151, 152, 200, 201, 202,203)
+        YCBCR_CCIR_601_2_525_line_2_1_interlace_4_3,
+        YCBCR_CCIR_601_2_625_line_2_1_interlace_4_3,
+        YCBCR_CCIR_601_2_525_line_2_1_interlace_16_9,
+        YCBCR_CCIR_601_2_625_line_2_1_interlace_16_9,
+        YCBCR_1050_line_2_1_interlace_16_9,
+        YCBCR_1125_line_2_1_interlace_16_9,
+        YCBCR_1250_line_2_1_interlace_16_9,
+        YCBCR_525_line_1_1_progressive_16_9,
+        YCBCR_625_line_1_1_progressive_16_9,
+        YCBCR_787_5_line_1_1_progressive_16_9
+    ) = (0, 1, 2, 3, 4, 50, 51, 100, 101, 150, 151, 152, 200, 201, 202)
 
 class _DpxIndustryTelevisionInfoHeader:
     def __init__(self, header):
@@ -880,4 +880,117 @@ class _DpxIndustryTelevisionInfoHeader:
         elif video_signal_type == 4:
             return DpxIndustryTelevisionInfoHeaderVideoSignalType.SECAM
         elif video_signal_type == 50:
-            return DpxIndustryTelevisionInfoHeaderVideoSignalType.YCBCR_CCIR_601_2_525_line_2_1_interlace_4_3_aspect_ratio
+            return DpxIndustryTelevisionInfoHeaderVideoSignalType.YCBCR_CCIR_601_2_525_line_2_1_interlace_4_3
+        elif video_signal_type == 51:
+            return DpxIndustryTelevisionInfoHeaderVideoSignalType.YCBCR_CCIR_601_2_625_line_2_1_interlace_4_3
+        elif video_signal_type == 100:
+            return DpxIndustryTelevisionInfoHeaderVideoSignalType.YCBCR_CCIR_601_2_525_line_2_1_interlace_16_9
+        elif video_signal_type == 101:
+            return DpxIndustryTelevisionInfoHeaderVideoSignalType.YCBCR_CCIR_601_2_625_line_2_1_interlace_16_9
+        elif video_signal_type == 150:
+            return DpxIndustryTelevisionInfoHeaderVideoSignalType.YCBCR_1050_line_2_1_interlace_16_9
+        elif video_signal_type == 151:
+            return DpxIndustryTelevisionInfoHeaderVideoSignalType.YCBCR_1125_line_2_1_interlace_16_9
+        elif video_signal_type == 152:
+            return DpxIndustryTelevisionInfoHeaderVideoSignalType.YCBCR_1250_line_2_1_interlace_16_9
+        elif video_signal_type == 200:
+            return DpxIndustryTelevisionInfoHeaderVideoSignalType.YCBCR_525_line_1_1_progressive_16_9
+        elif video_signal_type == 201:
+            return DpxIndustryTelevisionInfoHeaderVideoSignalType.YCBCR_625_line_1_1_progressive_16_9
+        elif video_signal_type == 202:
+            return DpxIndustryTelevisionInfoHeaderVideoSignalType.YCBCR_787_5_line_1_1_progressive_16_9
+        else:
+            return video_signal_type
+
+    @video_signal.setter
+    def video_signal(self, signal_type):
+        if signal_type in DpxIndustryTelevisionInfoHeaderVideoSignalType.values:
+            self._raw_header.TvHeader.VideoSignal = signal_type
+
+    @property
+    def padding(self):
+        return self._raw_header.TvHeader.Padding
+
+    @padding.setter
+    def padding(self, padding):
+        self._raw_header.TvHeader.Padding = padding
+
+    @property
+    def horizontal_sample_rate(self):
+        return self._raw_header.TvHeader.HorzSampleRate
+
+    @horizontal_sample_rate.setter
+    def horizontal_sample_rate(self, per_second):
+        self._raw_header.TvHeader.HorzSampleRate = per_second
+
+    @property
+    def vertical_sample_rate(self):
+        return self._raw_header.TvHeader.VertSampleRate
+
+    @vertical_sample_rate.setter
+    def vertical_sample_rate(self, per_second):
+        self._raw_header.TvHeader.VertSampleRate = per_second
+
+    @property
+    def frame_rate(self):
+        return self._raw_header.TvHeader.FrameRate
+
+    @frame_rate.setter
+    def frame_rate(self, fps):
+        self._raw_header.TvHeader.FrameRate = fps
+
+    @property
+    def time_offset(self):
+        return self._raw_header.TvHeader.TimeOffset
+
+    @time_offset.setter
+    def time_offset(self, micro_seconds):
+        self._raw_header.TvHeader.TimeOffset = micro_seconds
+
+    @property
+    def gamma(self):
+        return self._raw_header.TvHeader.Gamma
+
+    @gamma.setter
+    def gamma(self, value):
+        self._raw_header.TvHeader.Gamma = value
+
+    @property
+    def black_level(self):
+        return self._raw_header.TvHeader.BlackLevel
+
+    @black_level.setter
+    def black_level(self, level):
+        self._raw_header.TvHeader.BlackLevel = level
+
+    @property
+    def black_gain(self):
+        return self._raw_header.TvHeader.BlackGain
+
+    @black_gain.setter
+    def black_gain(self, gain):
+        self._raw_header.TvHeader.BlackGain = gain
+
+    @property
+    def break_point(self):
+        return self._raw_header.TvHeader.Breakpoint
+
+    @break_point.setter
+    def break_point(self, point):
+        self._raw_header.TvHeader.Breakpoint = point
+
+    @property
+    def white_level(self):
+        return self._raw_header.TvHeader.WhiteLevel
+
+    @white_level.setter
+    def white_level(self, level):
+        self._raw_header.TvHeader.WhiteLevel = level
+
+    @property
+    def integration_times(self):
+        return self._raw_header.TvHeader.IntegrationTimes
+
+    @integration_times.setter
+    def integration_times(self, times):
+        self._raw_header.TvHeader.IntegrationTimes = times

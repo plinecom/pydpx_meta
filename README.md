@@ -2,7 +2,11 @@
 Python dpx meta data library
 
 
-Pythonでdpxのヘッダー情報を読むライブラリを作りたいな。
+Pythonでdpx画像のヘッダー情報を読む書きするためのライブラリです。
+
+ライセンスはMITライセンスです。
+
+主に、タイムコードがぶっ壊れたdpxを復旧するために作られました。
 
 参考資料
 http://www.fileformat.info/format/dpx/egff.htm

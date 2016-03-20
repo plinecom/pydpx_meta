@@ -1,7 +1,9 @@
+from __future__ import print_function
 import low_header_big_endian
 import low_header_little_endian
 import header
 import shutil
+
 
 
 class DpxHeader:
@@ -46,3 +48,34 @@ class DpxHeader:
         fp = open(file_path, "rb+")
         fp.write(self.raw_header)
         fp.close()
+
+
+class DpxHeaderEx(DpxHeader):
+
+    def __init__(self, file_path=None):
+        DpxHeader.__init__(self, file_path)
+
+    def describe(self):
+        print("DPX Header Info")
+        print("Magic: " + self.file_header.magic)
+        print(self.raw_header.FileHeader.ImageOffset)
+        print(self.file_header.image_offset)
+        print(self.raw_header.FileHeader.Version)
+        print(self.raw_header.FileHeader.FileSize)
+        print(self.raw_header.FileHeader.DittoKey)
+        print(self.raw_header.FileHeader.IndustrySize)
+        print(self.raw_header.FileHeader.UserSize)
+        print(self.raw_header.FileHeader.FileName)
+        print(self.raw_header.FileHeader.TimeData)
+        print(self.raw_header.FileHeader.Creator)
+        print(self.raw_header.FileHeader.Project)
+        print(self.raw_header.ImageHeader.Orientation)
+        print(self.raw_header.ImageHeader.NumberElements)
+        print(self.raw_header.ImageHeader.ImageElement[0].Description)
+        print(self.image_header.image_element[0].data_sign)
+        print(self.raw_header.OrientHeader.XOriginalSize)
+        print(self.raw_header.OrientHeader.YOriginalSize)
+        print(self.raw_header.TvHeader.TimeCode)
+        print(self.raw_header.TvHeader.UserBits)
+        print(self.raw_header.TvHeader.FrameRate)
+        print(self.tv_header.time_code)

@@ -13,6 +13,7 @@ class DpxHeader:
 
     def load(self, file_path):
         self._file_path = file_path
+        self._is_big_endian = True
         _header = low_header_big_endian.DpxHeaderBigEndian()
         if file_path is not None:
             fp = open(file_path, "rb")
@@ -21,6 +22,7 @@ class DpxHeader:
 
             if _header.FileHeader.Magic != 'SDPX':
                 _header = low_header_little_endian.DpxHeaderLittleEndian()
+                self._is_big_endian = False
                 fp = open(file_path, "rb")
                 fp.readinto(_header)
                 fp.close()
@@ -79,3 +81,17 @@ class DpxHeaderEx(DpxHeader):
         print(self.raw_header.TvHeader.UserBits)
         print(self.raw_header.TvHeader.FrameRate)
         print(self.tv_header.time_code)
+
+    def endian(self):
+        if self._is_big_endian:
+            return "BigEndian"
+        else:
+            return "LittleEndian"
+
+    @property
+    def is_little_endian(self):
+        return not self._is_big_endian
+
+    @property
+    def is_big_endian(self):
+        return self._is_big_endian

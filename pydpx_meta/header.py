@@ -809,6 +809,7 @@ class DpxIndustryTelevisionInfoHeaderVideoSignalType:
         YCBCR_787_5_line_1_1_progressive_16_9
     ) = (0, 1, 2, 3, 4, 50, 51, 100, 101, 150, 151, 152, 200, 201, 202)
 
+
 class _DpxIndustryTelevisionInfoHeader:
     def __init__(self, header):
         self._raw_header = header

@@ -21,6 +21,34 @@ class _DpxGenericHeaderEx(header._DpxGenericHeader):
             self.dit_to_key = 0
 
 
+class _DpxGenericImageHeaderEx(header._DpxGenericImageHeader):
+    def __init__(self, raw_header):
+        header._DpxGenericImageHeader.__init__(self, raw_header)
+
+    @property
+    def orientation_str(self):
+        orient = self.orientation
+        if orient == header.DpxImageHeaderOrientaion.LeftToRight_TopToBottom:
+            return "LeftToRight_TopToBottom"
+        elif orient == header.DpxImageHeaderOrientaion.RightToLeft_TopToBottom:
+            return "RightToLeft_TopToBottom"
+        elif orient == header.DpxImageHeaderOrientaion.LeftToRight_BottomToTop:
+            return "LeftToRight_BottomToTop"
+        elif orient == header.DpxImageHeaderOrientaion.RightToLeft_BottomToTop:
+            return "RightToLeft_BottomToTop"
+        elif orient == header.DpxImageHeaderOrientaion.TopToBottom_LeftToRight:
+            return "TopToBottom_LeftToRight"
+        elif orient == header.DpxImageHeaderOrientaion.TopTOBottom_RightToLeft:
+            return "TopTOBottom_RightToLeft"
+        elif orient == header.DpxImageHeaderOrientaion.BottomToTop_LeftToRight:
+            return "BottomToTop_LeftToRight"
+        elif orient == header.DpxImageHeaderOrientaion.BottomToTop_RightToLeft:
+            return "BottomToTop_RightToLeft"
+        else:
+            return str(orient)
+
+
+
 class _DpxIndustryTelevisionInfoHeaderEx(header._DpxIndustryTelevisionInfoHeader):
     def __init__(self, raw_header):
         header._DpxIndustryTelevisionInfoHeader.__init__(self, raw_header)

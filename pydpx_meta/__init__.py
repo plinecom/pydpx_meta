@@ -57,7 +57,7 @@ class DpxHeaderEx(DpxHeader):
     def __init__(self, file_path=None):
         DpxHeader.__init__(self, file_path)
         self.file_header = header_ex._DpxGenericHeaderEx(self.raw_header)
-
+        self.image_header = header_ex._DpxGenericImageHeaderEx(self.raw_header)
     def describe(self):
         output = "----------------\n"
         output += "DPX Header Info\n"
@@ -75,11 +75,18 @@ class DpxHeaderEx(DpxHeader):
         output += "User size: " + str(self.file_header.user_size) + " bytes\n"
         output += "File name: " + self.file_header.file_name + "\n"
         output += "TimeDate :" + self.file_header.time_date + "\n"
+        output += "Creator :" + self.file_header.creator + "\n"
+        output += "Project :" + self.file_header.project + "\n"
+        output += "Copyright :" + self.file_header.copyright + "\n"
+        output += "Encrypt Key: " + "{0:0>8X}".format(self.file_header.encrypt_key) + "\n"
+        output += "----------------\n"
+        output += "Image Header\n"
+        output += "----------------\n"
+        output += "Orientation: " + self.image_header.orientation_str + "\n"
+        output += "Number of elements: " + str(self.image_header.number_elements) + " images\n"
+        output += "Pixels per line: " + str(self.image_header.pixels_per_line) + " pixels\n"
+        output += "Lines per element: " + str(self.image_header.lines_per_element) + " lines\n"
 
-        output += str(self.raw_header.FileHeader.Creator)
-        output += str(self.raw_header.FileHeader.Project)
-        output += str(self.raw_header.ImageHeader.Orientation)
-        output += str(self.raw_header.ImageHeader.NumberElements)
         output += str(self.raw_header.ImageHeader.ImageElement[0].Description)
         output += str(self.image_header.image_element[0].data_sign)
         output += str(self.raw_header.OrientHeader.XOriginalSize)

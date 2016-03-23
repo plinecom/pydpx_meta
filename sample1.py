@@ -2,7 +2,7 @@ import pydpx_meta
 
 # create instance
 dpx = pydpx_meta.DpxHeader("/root/V14_37_26_01_v001.0186.dpx")
-#dpx = pydpx_meta.DpxHeader()
+# dpx = pydpx_meta.DpxHeader()
 
 # normal access
 print dpx.file_header.magic
@@ -15,10 +15,10 @@ print dpx.tv_header.frame_rate
 print "- edit and save sample -"
 # change time code
 print dpx.tv_header.time_code
-dpx.tv_header.timecode ="01:23:45:12"
+dpx.tv_header.time_code = "01:23:45:12"
 print dpx.tv_header.time_code
 # change orientation
-dpx.raw_header.ImageHeader.Orientation =2
+dpx.raw_header.ImageHeader.Orientation = 2
 # commit change
 dpx.save("/root/test.dpx")
 
@@ -43,4 +43,3 @@ print dpx.raw_header.OrientHeader.YOriginalSize
 print dpx.raw_header.TvHeader.TimeCode
 print dpx.raw_header.TvHeader.UserBits
 print dpx.raw_header.TvHeader.FrameRate
-

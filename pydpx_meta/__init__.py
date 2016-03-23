@@ -97,6 +97,7 @@ class DpxHeaderEx(DpxHeader):
             output += "  High Data: " + str(self.image_header.image_element[i].high_data) + "\n"
             output += "  High Quantity: " + str(self.image_header.image_element[i].high_quantity) + "\n"
             output += "  Descriptor: " + self.image_header.image_element[i].descriptor_str + "\n"
+            output += "  Transfer: " + self.image_header.image_element[i].transfer_str + "\n"
             output += "  Description: " + self.image_header.image_element[i].description + "\n"
 
 

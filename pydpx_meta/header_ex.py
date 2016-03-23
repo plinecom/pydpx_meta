@@ -118,6 +118,37 @@ class _DpxGenericImageElementEx(header._DpxGenericImageElement):
         else:
             return str(desc)
 
+    @property
+    def transfer_str(self):
+        trans = self.transfer
+        if trans == header.DpxImageElementTransfer.User_defined:
+            return "User-defined"
+        elif trans == header.DpxImageElementTransfer.Printing_density:
+            return "Printing density"
+        elif trans == header.DpxImageElementTransfer.Linear:
+            return "Linear"
+        elif trans == header.DpxImageElementTransfer.Logarithmic:
+            return "Logarithmic"
+        elif trans == header.DpxImageElementTransfer.Unspecified_video:
+            return "Unspecified video"
+        elif trans == header.DpxImageElementTransfer.SMPTE_240M:
+            return "SMPTE 240M"
+        elif trans == header.DpxImageElementTransfer.CCIR_709_1:
+            return "CCIR 709-1"
+        elif trans == header.DpxImageElementTransfer.CCIR_601_2_system_B_or_G:
+            return "CCIR 601-2 system B or G"
+        elif trans == header.DpxImageElementTransfer.CCIR_601_2_system_M:
+            return "CCIR 601-2 system M"
+        elif trans == header.DpxImageElementTransfer.NTSC_composite_video:
+            return "NTSC composite video"
+        elif trans == header.DpxImageElementTransfer.PAL_composite_video:
+            return "PAL composite video"
+        elif trans == header.DpxImageElementTransfer.Z_linear:
+            return "Z linear"
+        elif trans == header.DpxImageElementTransfer.Z_homogeneous:
+            return "Z homogeneous"
+        else:
+            return str(trans)
 
 class _DpxIndustryTelevisionInfoHeaderEx(header._DpxIndustryTelevisionInfoHeader):
     def __init__(self, raw_header):

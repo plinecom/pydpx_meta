@@ -1,4 +1,3 @@
-from __future__ import print_function
 import low_header_big_endian
 import low_header_little_endian
 import header
@@ -58,29 +57,31 @@ class DpxHeaderEx(DpxHeader):
         DpxHeader.__init__(self, file_path)
 
     def describe(self):
-        print("DPX Header Info")
-        print("Magic: " + self.file_header.magic)
-        print(self.raw_header.FileHeader.ImageOffset)
-        print(self.file_header.image_offset)
-        print(self.raw_header.FileHeader.Version)
-        print(self.raw_header.FileHeader.FileSize)
-        print(self.raw_header.FileHeader.DittoKey)
-        print(self.raw_header.FileHeader.IndustrySize)
-        print(self.raw_header.FileHeader.UserSize)
-        print(self.raw_header.FileHeader.FileName)
-        print(self.raw_header.FileHeader.TimeData)
-        print(self.raw_header.FileHeader.Creator)
-        print(self.raw_header.FileHeader.Project)
-        print(self.raw_header.ImageHeader.Orientation)
-        print(self.raw_header.ImageHeader.NumberElements)
-        print(self.raw_header.ImageHeader.ImageElement[0].Description)
-        print(self.image_header.image_element[0].data_sign)
-        print(self.raw_header.OrientHeader.XOriginalSize)
-        print(self.raw_header.OrientHeader.YOriginalSize)
-        print(self.raw_header.TvHeader.TimeCode)
-        print(self.raw_header.TvHeader.UserBits)
-        print(self.raw_header.TvHeader.FrameRate)
-        print(self.tv_header.time_code)
+        output = "DPX Header Info"
+        output += "Magic: " + self.file_header.magic
+        output += str(self.raw_header.FileHeader.ImageOffset)
+        output += str(self.file_header.image_offset)
+        output += str(self.raw_header.FileHeader.Version)
+        output += str(self.raw_header.FileHeader.FileSize)
+        output += str(self.raw_header.FileHeader.DittoKey)
+        output += str(self.raw_header.FileHeader.IndustrySize)
+        output += str(self.raw_header.FileHeader.UserSize)
+        output += str(self.raw_header.FileHeader.FileName)
+        output += str(self.raw_header.FileHeader.TimeData)
+        output += str(self.raw_header.FileHeader.Creator)
+        output += str(self.raw_header.FileHeader.Project)
+        output += str(self.raw_header.ImageHeader.Orientation)
+        output += str(self.raw_header.ImageHeader.NumberElements)
+        output += str(self.raw_header.ImageHeader.ImageElement[0].Description)
+        output += str(self.image_header.image_element[0].data_sign)
+        output += str(self.raw_header.OrientHeader.XOriginalSize)
+        output += str(self.raw_header.OrientHeader.YOriginalSize)
+        output += str(self.raw_header.TvHeader.TimeCode)
+        output += str(self.raw_header.TvHeader.UserBits)
+        output += str(self.raw_header.TvHeader.FrameRate)
+        output += str(self.tv_header.time_code)
+
+        return output
 
     def endian(self):
         if self._is_big_endian:

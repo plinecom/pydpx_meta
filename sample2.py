@@ -12,7 +12,7 @@ for file in sorted(files):
 
 
 dpx = pydpx_meta.DpxHeaderEx()
-dpx.describe()
+print dpx.describe()
 
 
 #dpx.save("/root/test.dpx")

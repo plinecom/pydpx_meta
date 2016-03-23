@@ -86,8 +86,13 @@ class DpxHeaderEx(DpxHeader):
         output += "Number of elements: " + str(self.image_header.number_elements) + " images\n"
         output += "Pixels per line: " + str(self.image_header.pixels_per_line) + " pixels\n"
         output += "Lines per element: " + str(self.image_header.lines_per_element) + " lines\n"
+        for i in range(0,7):
+            output += "  --------------\n"
+            output += "  Image Element " + str(i) +"\n"
+            output += "  --------------\n"
+            output += "  LowData: " + str(self.image_header.image_element[i].low_data) + "\n"
+            output += "  Description: " + self.image_header.image_element[i].description + "\n"
 
-        output += str(self.raw_header.ImageHeader.ImageElement[0].Description)
         output += str(self.image_header.image_element[0].data_sign)
         output += str(self.raw_header.OrientHeader.XOriginalSize)
         output += str(self.raw_header.OrientHeader.YOriginalSize)

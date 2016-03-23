@@ -6,7 +6,7 @@ files = []
 print files
 for file in sorted(files):
     dpx = pydpx_meta.DpxHeader(file)
-    print dpx.tv_header.timecode
+    print dpx.tv_header.time_code
 
 #dpx = pydpx_meta.DpxHeaderEx("/root/V14_37_26_01_v001.0186.dpx")
 

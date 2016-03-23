@@ -941,6 +941,10 @@ class _DpxIndustryTelevisionInfoHeader:
         self._raw_header.TvHeader.FrameRate = fps
 
     @property
+    def frame_rate_for_tc(self):
+        return "{0:.2f}".format(self._raw_header.TvHeader.FrameRate)
+
+    @property
     def time_offset(self):
         return self._raw_header.TvHeader.TimeOffset
 

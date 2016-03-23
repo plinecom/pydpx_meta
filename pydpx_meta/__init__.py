@@ -57,8 +57,8 @@ class DpxHeaderEx(DpxHeader):
         DpxHeader.__init__(self, file_path)
 
     def describe(self):
-        output = "DPX Header Info"
-        output += "Magic: " + self.file_header.magic
+        output = "DPX Header Info\n"
+        output += "Magic: " + self.file_header.magic + "\n"
         output += str(self.raw_header.FileHeader.ImageOffset)
         output += str(self.file_header.image_offset)
         output += str(self.raw_header.FileHeader.Version)

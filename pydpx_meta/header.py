@@ -245,11 +245,11 @@ class _DpxGenericImageElement:
         self._raw_image_element.LowData = min_value
 
     @property
-    def low_quality(self):
-        return self._raw_image_element.LowQuality
+    def low_quantity(self):
+        return self._raw_image_element.LowQuantity
 
-    @low_quality.setter
-    def low_quality(self, quality):
+    @low_quantity.setter
+    def low_quantity(self, quality):
         self._raw_image_element.LowQuality = quality
 
     @property
@@ -261,10 +261,10 @@ class _DpxGenericImageElement:
         self._raw_image_element.HighData = max_value
 
     @property
-    def high_quality(self):
-        return self._raw_image_element.HighQuality
+    def high_quantity(self):
+        return self._raw_image_element.HighQuantity
 
-    @high_quality.setter
+    @high_quantity.setter
     def high_quality(self, quality):
         self._raw_image_element.HighQuality = quality
 

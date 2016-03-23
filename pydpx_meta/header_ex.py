@@ -25,6 +25,10 @@ class _DpxGenericImageHeaderEx(header._DpxGenericImageHeader):
     def __init__(self, raw_header):
         header._DpxGenericImageHeader.__init__(self, raw_header)
 
+        self.image_element = []
+        for i in range(0, 8):
+            self.image_element.append(_DpxGenericImageElementEx(self._raw_header.ImageHeader.ImageElement[i]))
+
     @property
     def orientation_str(self):
         orient = self.orientation
@@ -46,6 +50,21 @@ class _DpxGenericImageHeaderEx(header._DpxGenericImageHeader):
             return "BottomToTop_RightToLeft"
         else:
             return str(orient)
+
+
+class _DpxGenericImageElementEx(header._DpxGenericImageElement):
+    def __init__(self, image_element):
+        header._DpxGenericImageElement.__init__(self, image_element)
+
+    @property
+    def data_sign_str(self):
+        sign = self.data_sign
+        if sign == header.DpxImageElementSign.unsigned_value:
+            return "Unsigned_value"
+        elif sign == header.DpxImageElementSign.signed_value:
+            return "Signed_value"
+        else:
+            return str(sign)
 
 
 

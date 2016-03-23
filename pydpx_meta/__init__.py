@@ -58,6 +58,7 @@ class DpxHeaderEx(DpxHeader):
         DpxHeader.__init__(self, file_path)
         self.file_header = header_ex._DpxGenericHeaderEx(self.raw_header)
         self.image_header = header_ex._DpxGenericImageHeaderEx(self.raw_header)
+
     def describe(self):
         output = "----------------\n"
         output += "DPX Header Info\n"
@@ -90,10 +91,11 @@ class DpxHeaderEx(DpxHeader):
             output += "  --------------\n"
             output += "  Image Element " + str(i) +"\n"
             output += "  --------------\n"
-            output += "  LowData: " + str(self.image_header.image_element[i].low_data) + "\n"
+            output += "  Data Sign: " + self.image_header.image_element[i].data_sign_str + "\n"
+            output += "  Low Data: " + str(self.image_header.image_element[i].low_data) + "\n"
+            output += "  Low Quantity: " + str(self.image_header.image_element[i].low_quantity) + "\n"
             output += "  Description: " + self.image_header.image_element[i].description + "\n"
 
-        output += str(self.image_header.image_element[0].data_sign)
         output += str(self.raw_header.OrientHeader.XOriginalSize)
         output += str(self.raw_header.OrientHeader.YOriginalSize)
         output += str(self.raw_header.TvHeader.TimeCode)

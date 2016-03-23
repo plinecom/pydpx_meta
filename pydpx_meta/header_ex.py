@@ -66,6 +66,57 @@ class _DpxGenericImageElementEx(header._DpxGenericImageElement):
         else:
             return str(sign)
 
+    @property
+    def descriptor_str(self):
+        desc = self.descriptor
+        if desc == header.DpxImageElementDescriptor.User_Defined:
+            return "User-Defined"
+        elif desc == header.DpxImageElementDescriptor.Red:
+            return "Red"
+        elif desc == header.DpxImageElementDescriptor.Green:
+            return "Green"
+        elif desc == header.DpxImageElementDescriptor.Blue:
+            return "Blue"
+        elif desc == header.DpxImageElementDescriptor.Alpha:
+            return "Alpha"
+        elif desc == header.DpxImageElementDescriptor.Luminance:
+            return "Luminance"
+        elif desc == header.DpxImageElementDescriptor.Chrominance:
+            return "Chrominance"
+        elif desc == header.DpxImageElementDescriptor.Depth:
+            return "Depth"
+        elif desc == header.DpxImageElementDescriptor.Composite_video:
+            return "Composite_video"
+        elif desc == header.DpxImageElementDescriptor.RGB:
+            return "RGB"
+        elif desc == header.DpxImageElementDescriptor.RGBA:
+            return "RGBA"
+        elif desc == header.DpxImageElementDescriptor.ABGR:
+            return "ABGR"
+        elif desc == header.DpxImageElementDescriptor.CbYCrY:
+            return "CbYCrY"
+        elif desc == header.DpxImageElementDescriptor.CbYaCrYa:
+            return "CbYaCrYa"
+        elif desc == header.DpxImageElementDescriptor.CbYCr:
+            return "CbYCr"
+        elif desc == header.DpxImageElementDescriptor.CbYCra:
+            return "CbYCra"
+        elif desc == header.DpxImageElementDescriptor.User_defined_2_component_element:
+            return "User-defined 2-component element"
+        elif desc == header.DpxImageElementDescriptor.User_defined_3_component_element:
+            return "User-defined 3-component element"
+        elif desc == header.DpxImageElementDescriptor.User_defined_4_component_element:
+            return "User-defined 4-component element"
+        elif desc == header.DpxImageElementDescriptor.User_defined_5_component_element:
+            return "User-defined 5-component element"
+        elif desc == header.DpxImageElementDescriptor.User_defined_6_component_element:
+            return "User-defined 6-component element"
+        elif desc == header.DpxImageElementDescriptor.User_defined_7_component_element:
+            return "User-defined 7-component element"
+        elif desc == header.DpxImageElementDescriptor.User_defined_8_component_element:
+            return "User-defined 8-component element"
+        else:
+            return str(desc)
 
 
 class _DpxIndustryTelevisionInfoHeaderEx(header._DpxIndustryTelevisionInfoHeader):

@@ -26,7 +26,7 @@ class _DpxGenericImageElementLittleEndian(ctypes.LittleEndianStructure):
         ('DataSign', ctypes.c_uint32),
         ('LowData', ctypes.c_int32),
         ('LowQuantity', ctypes.c_float),
-        ('HighData', ctypes.c_uint32),
+        ('HighData', ctypes.c_int32),
         ('HighQuantity', ctypes.c_float),
         ('Descriptor', ctypes.c_byte),
         ('Transfer', ctypes.c_byte),

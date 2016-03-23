@@ -94,7 +94,11 @@ class DpxHeaderEx(DpxHeader):
             output += "  Data Sign: " + self.image_header.image_element[i].data_sign_str + "\n"
             output += "  Low Data: " + str(self.image_header.image_element[i].low_data) + "\n"
             output += "  Low Quantity: " + str(self.image_header.image_element[i].low_quantity) + "\n"
+            output += "  High Data: " + str(self.image_header.image_element[i].high_data) + "\n"
+            output += "  High Quantity: " + str(self.image_header.image_element[i].high_quantity) + "\n"
+            output += "  Descriptor: " + self.image_header.image_element[i].descriptor_str + "\n"
             output += "  Description: " + self.image_header.image_element[i].description + "\n"
+
 
         output += str(self.raw_header.OrientHeader.XOriginalSize)
         output += str(self.raw_header.OrientHeader.YOriginalSize)

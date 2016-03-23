@@ -1,12 +1,4 @@
-from pydpx_meta import header
 import pydpx_meta
-import glob
-files = []
-
-print files
-for file in sorted(files):
-    dpx = pydpx_meta.DpxHeader(file)
-    print dpx.tv_header.time_code
 
 dpx = pydpx_meta.DpxHeader("/root/V14_37_26_01_v001.0186.dpx")
 #dpx = pydpx_meta.DpxHeader()
@@ -27,7 +19,6 @@ print dpx.raw_header.ImageHeader.Orientation
 print dpx.raw_header.ImageHeader.NumberElements
 print dpx.raw_header.ImageHeader.ImageElement[0].Description
 print dpx.image_header.image_element[0].data_sign
-print header.DpxImageElementDescriptor.values
 print dpx.raw_header.OrientHeader.XOriginalSize
 print dpx.raw_header.OrientHeader.YOriginalSize
 print dpx.raw_header.TvHeader.TimeCode

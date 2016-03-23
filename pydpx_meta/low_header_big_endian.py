@@ -12,7 +12,7 @@ class _DpxGenericHeaderBigEndian(ctypes.BigEndianStructure):
         ('IndustrySize', ctypes.c_uint32),
         ('UserSize', ctypes.c_uint32),
         ('FileName', ctypes.c_char * 100),
-        ('TimeData', ctypes.c_char * 24),
+        ('TimeDate', ctypes.c_char * 24),
         ('Creator', ctypes.c_char * 100),
         ('Project', ctypes.c_char * 200),
         ('Copyright', ctypes.c_char * 200),

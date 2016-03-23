@@ -1,6 +1,7 @@
 import low_header_big_endian
 import low_header_little_endian
 import header
+import header_ex
 import shutil
 
 
@@ -55,19 +56,26 @@ class DpxHeaderEx(DpxHeader):
 
     def __init__(self, file_path=None):
         DpxHeader.__init__(self, file_path)
+        self.file_header = header_ex._DpxGenericHeaderEx(self.raw_header)
 
     def describe(self):
-        output = "DPX Header Info\n"
+        output = "----------------\n"
+        output += "DPX Header Info\n"
+        output += "----------------\n"
+        output += "Generic Header\n"
+        output += "----------------\n"
         output += "Magic: " + self.file_header.magic + "\n"
-        output += str(self.raw_header.FileHeader.ImageOffset)
-        output += str(self.file_header.image_offset)
-        output += str(self.raw_header.FileHeader.Version)
-        output += str(self.raw_header.FileHeader.FileSize)
-        output += str(self.raw_header.FileHeader.DittoKey)
-        output += str(self.raw_header.FileHeader.IndustrySize)
-        output += str(self.raw_header.FileHeader.UserSize)
-        output += str(self.raw_header.FileHeader.FileName)
-        output += str(self.raw_header.FileHeader.TimeData)
+        output += "Endian: " + self.endian() + "\n"
+        output += "Image offset: " + str(self.file_header.image_offset) + " bytes\n"
+        output += "DPX version: " + self.file_header.version + "\n"
+        output += "File size: " + str(self.file_header.file_size) + " bytes\n"
+        output += "Dit to key: " + str(self.file_header.is_dit_to_key) + "\n"
+        output += "Generic Header size: " + str(self.file_header.generic_size) + " bytes\n"
+        output += "Industry Header size: " + str(self.file_header.industry_size) + " bytes\n"
+        output += "User size: " + str(self.file_header.user_size) + " bytes\n"
+        output += "File name: " + self.file_header.file_name + "\n"
+        output += "TimeDate :" + self.file_header.time_date + "\n"
+
         output += str(self.raw_header.FileHeader.Creator)
         output += str(self.raw_header.FileHeader.Project)
         output += str(self.raw_header.ImageHeader.Orientation)

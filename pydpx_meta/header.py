@@ -76,12 +76,12 @@ class _DpxGenericHeader:
         self._raw_header.FileHeader.FileName = name
 
     @property
-    def time_data(self):
-        return str(self._raw_header.FileHeader.TimeData)
+    def time_date(self):
+        return str(self._raw_header.FileHeader.TimeDate)
 
-    @time_data.setter
-    def time_data(self, time):
-        self._raw_header.FileHeader.TimeData = time
+    @time_date.setter
+    def time_date(self, time):
+        self._raw_header.FileHeader.TimeDate = time
 
     @property
     def creator(self):

@@ -150,6 +150,7 @@ class _DpxGenericImageElementEx(header._DpxGenericImageElement):
         else:
             return str(trans)
 
+
 class _DpxIndustryTelevisionInfoHeaderEx(header._DpxIndustryTelevisionInfoHeader):
     def __init__(self, raw_header):
         header._DpxIndustryTelevisionInfoHeader.__init__(self, raw_header)
@@ -171,5 +172,3 @@ class _DpxIndustryTelevisionInfoHeaderEx(header._DpxIndustryTelevisionInfoHeader
             self._raw_header.TvHeader.Interlace = 1
         else:
             self._raw_header.TvHeader.Interlace = 0
-
-

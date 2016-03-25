@@ -624,8 +624,8 @@ class _DpxGenericOrientationHeader:
         return str(self._raw_header.OrientHeader.InputSN)
 
     @input_sn.setter
-    def input_sn(self, sn_str):
-        self._raw_header.OrientHeader.InputSN = sn_str
+    def input_sn(self, serial_number_str):
+        self._raw_header.OrientHeader.InputSN = serial_number_str
 
     @property
     def border_x_left(self):

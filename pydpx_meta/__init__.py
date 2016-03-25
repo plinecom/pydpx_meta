@@ -123,7 +123,14 @@ class DpxHeaderEx(DpxHeader):
         output += "Y original size: {0:d} pixels\n".format(self.orient_header.y_original_size)
         output += "File name: {0}\n".format(self.orient_header.file_name)
         output += "Time Date: {0}\n".format(self.orient_header.time_date)
-
+        output += "Input device name: {0}\n".format(self.orient_header.input_name)
+        output += "Input device Serial Number: {0}\n".format(self.orient_header.input_sn)
+        output += "Border X Left: {0:d}\n".format(self.orient_header.border_x_left)
+        output += "Border X Right: {0:d}\n".format(self.orient_header.border_x_right)
+        output += "Border Y Top: {0:d}\n".format(self.orient_header.border_y_top)
+        output += "Border Y Bottom: {0:d}\n".format(self.orient_header.border_y_bottom)
+        output += "AspectRatio: H:{0:d} V:{0:d}\n".format(
+            self.orient_header.aspect_ratio_h, self.orient_header.aspect_ratio_v)
         output += str(self.raw_header.TvHeader.TimeCode)
         output += str(self.raw_header.TvHeader.UserBits)
         output += str(self.raw_header.TvHeader.FrameRate)

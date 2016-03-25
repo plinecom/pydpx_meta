@@ -60,6 +60,7 @@ class DpxHeaderEx(DpxHeader):
         self.file_header = header_ex._DpxGenericHeaderEx(self.raw_header)
         self.image_header = header_ex._DpxGenericImageHeaderEx(self.raw_header)
         self.orient_header = header_ex._DpxGenericOrientationHeaderEx(self.raw_header)
+        self.tv_header = header_ex._DpxIndustryTelevisionInfoHeaderEx(self.raw_header)
 
     @property
     def describe(self):
@@ -150,10 +151,13 @@ class DpxHeaderEx(DpxHeader):
         output += "----------------\n"
         output += "TV Header\n"
         output += "----------------\n"
-        output += str(self.raw_header.TvHeader.TimeCode)
-        output += str(self.raw_header.TvHeader.UserBits)
+        output += "Time code: {0}\n".format(self.tv_header.time_code)
+        output += "User bits: {0}\n".format(self.tv_header.user_bits)
+        output += "Interlace: " + str(self.tv_header.is_interlaced) + "\n"
+        output += "Field Number: {0:d} field\n".format(self.tv_header.field_number)
+
         output += str(self.raw_header.TvHeader.FrameRate)
-        output += str(self.tv_header.time_code)
+
 
         return output
 

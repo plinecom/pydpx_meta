@@ -207,10 +207,11 @@ class _DpxIndustryTelevisionInfoHeaderEx(header._DpxIndustryTelevisionInfoHeader
 
     @property
     def is_interlaced(self):
-        interlace = self._raw_header.TvHeader.Interlace
-        if interlace == 0:
+
+        interlace = self.interlaced
+        if interlace == header.DpxIndustryTelevisionInfoHeaderInterlace.not_interlaced:
             return False
-        elif interlace == 1:
+        elif interlace == header.DpxIndustryTelevisionInfoHeaderInterlace.interlaced:
             return True
         else:
             return interlace

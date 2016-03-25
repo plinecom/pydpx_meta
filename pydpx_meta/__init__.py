@@ -142,6 +142,14 @@ class DpxHeaderEx(DpxHeader):
         output += "Film format: {0}\n".format(self.film_header.format)
         output += "Frame sequence position: {0:d} frame\n".format(self.film_header.frame_position)
         output += "Sequence length: {0:d} frames\n".format(self.film_header.sequence_length)
+        output += "Held Count: {0:d}\n".format(self.film_header.held_count)
+        output += "Frame rate: {0:f} fps\n".format(self.film_header.frame_rate)
+        output += "Shutter Angle: {0:f} degrees\n".format(self.film_header.shutter_angle)
+        output += "Frame ID: {0}\n".format(self.film_header.frame_id)
+        output += "Slate info: {0}\n".format(self.film_header.slate_info)
+        output += "----------------\n"
+        output += "TV Header\n"
+        output += "----------------\n"
         output += str(self.raw_header.TvHeader.TimeCode)
         output += str(self.raw_header.TvHeader.UserBits)
         output += str(self.raw_header.TvHeader.FrameRate)

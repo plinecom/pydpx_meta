@@ -80,7 +80,7 @@ class _DpxIndustryFilmInfoHeaderLittleEndian(ctypes.LittleEndianStructure):
         ('Format', ctypes.c_char * 32),
         ('FramePosition', ctypes.c_uint32),
         ('SequenceLen', ctypes.c_int32),
-        ('HeldCount', ctypes.c_uint32),
+        ('HeldCount', ctypes.c_int32),
         ('FrameRate', ctypes.c_float),
         ('ShutterAngle', ctypes.c_float),
         ('FrameId', ctypes.c_char * 32),

@@ -604,12 +604,12 @@ class _DpxGenericOrientationHeader:
         self._raw_header.OrientHeader.FileName = name
 
     @property
-    def time_data(self):
-        return str(self._raw_header.OrientHeader.TimeData)
+    def time_date(self):
+        return str(self._raw_header.OrientHeader.TimeDate)
 
-    @time_data.setter
-    def time_data(self, time_str):
-        self._raw_header.OrientHeader.FileName = time_str
+    @time_date.setter
+    def time_date(self, time_str):
+        self._raw_header.OrientHeader.TimeDate = time_str
 
     @property
     def input_name(self):

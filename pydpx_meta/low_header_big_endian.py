@@ -61,7 +61,7 @@ class _DpxGenericOrientationHeaderBigEndian(ctypes.BigEndianStructure):
         ('XOriginalSize', ctypes.c_uint32),
         ('YOriginalSize', ctypes.c_uint32),
         ('FileName', ctypes.c_char * 100),
-        ('TimeData', ctypes.c_char * 24),
+        ('TimeDate', ctypes.c_char * 24),
         ('InputName', ctypes.c_char * 32),
         ('InputSN', ctypes.c_char * 32),
         ('Border', ctypes.c_uint16 * 4),

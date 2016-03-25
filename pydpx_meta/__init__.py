@@ -112,9 +112,18 @@ class DpxHeaderEx(DpxHeader):
                 self.image_header.image_element[i].end_of_image_padding)
             output += "  Description: " + self.image_header.image_element[i].description + "\n"
 
+        output += "----------------\n"
+        output += "Orient Header\n"
+        output += "----------------\n"
+        output += "X offset: {0:d} pixels\n".format(self.orient_header.x_offset)
+        output += "Y offset: {0:d} pixels\n".format(self.orient_header.y_offset)
+        output += "X center: {0:f} pixels\n".format(self.orient_header.x_center)
+        output += "Y center: {0:f} pixels\n".format(self.orient_header.y_center)
+        output += "X original size: {0:d} pixels\n".format(self.orient_header.x_original_size)
+        output += "Y original size: {0:d} pixels\n".format(self.orient_header.y_original_size)
+        output += "File name: {0}\n".format(self.orient_header.file_name)
+        output += "Time Date: {0}\n".format(self.orient_header.time_date)
 
-        output += str(self.raw_header.OrientHeader.XOriginalSize)
-        output += str(self.raw_header.OrientHeader.YOriginalSize)
         output += str(self.raw_header.TvHeader.TimeCode)
         output += str(self.raw_header.TvHeader.UserBits)
         output += str(self.raw_header.TvHeader.FrameRate)

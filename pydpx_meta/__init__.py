@@ -32,6 +32,7 @@ class DpxHeader:
 
         self.file_header = header._DpxGenericHeader(self.raw_header)
         self.image_header = header._DpxGenericImageHeader(self.raw_header)
+        self.orient_header = header._DpxGenericOrientationHeader(self.raw_header)
         self.film_header = header._DpxIndustryFilmInfoHeader(self.raw_header)
         self.tv_header = header._DpxIndustryTelevisionInfoHeader(self.raw_header)
 
@@ -58,6 +59,7 @@ class DpxHeaderEx(DpxHeader):
         DpxHeader.__init__(self, file_path)
         self.file_header = header_ex._DpxGenericHeaderEx(self.raw_header)
         self.image_header = header_ex._DpxGenericImageHeaderEx(self.raw_header)
+        self.orient_header = header_ex._DpxGenericOrientationHeaderEx(self.raw_header)
 
     @property
     def describe(self):

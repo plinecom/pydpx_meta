@@ -196,6 +196,11 @@ class _DpxGenericImageElementEx(header._DpxGenericImageElement):
             return str(encoding_type)
 
 
+class _DpxGenericOrientationHeaderEx(header._DpxGenericOrientationHeader):
+    def __init__(self, raw_header):
+        header._DpxGenericOrientationHeader.__init__(self, raw_header)
+
+
 class _DpxIndustryTelevisionInfoHeaderEx(header._DpxIndustryTelevisionInfoHeader):
     def __init__(self, raw_header):
         header._DpxIndustryTelevisionInfoHeader.__init__(self, raw_header)

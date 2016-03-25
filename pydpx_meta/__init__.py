@@ -131,6 +131,17 @@ class DpxHeaderEx(DpxHeader):
         output += "Border Y Bottom: {0:d}\n".format(self.orient_header.border_y_bottom)
         output += "AspectRatio: H:{0:d} V:{0:d}\n".format(
             self.orient_header.aspect_ratio_h, self.orient_header.aspect_ratio_v)
+        output += "----------------\n"
+        output += "Film Header\n"
+        output += "----------------\n"
+        output += "Film manufacturer ID code: {0}\n".format(self.film_header.film_mfg_id)
+        output += "Film type: {0}\n".format(self.film_header.film_type)
+        output += "Film perforations offset: {0}\n".format(self.film_header.offset)
+        output += "Prefix code: {0}\n".format(self.film_header.prefix)
+        output += "Count code: {0}\n".format(self.film_header.count)
+        output += "Film format: {0}\n".format(self.film_header.format)
+        output += "Frame sequence position: {0:d} frame\n".format(self.film_header.frame_position)
+        output += "Sequence length: {0:d} frames\n".format(self.film_header.sequence_length)
         output += str(self.raw_header.TvHeader.TimeCode)
         output += str(self.raw_header.TvHeader.UserBits)
         output += str(self.raw_header.TvHeader.FrameRate)

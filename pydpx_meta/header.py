@@ -737,6 +737,14 @@ class _DpxIndustryFilmInfoHeader:
         self._raw_header.FilmHeader.FramePosition = frame_pos
 
     @property
+    def sequence_length(self):
+        return self._raw_header.FilmHeader.SequenceLen
+
+    @sequence_length.setter
+    def sequence_length(self, frames):
+        self._raw_header.FilmHeader.SequenceLen = frames
+
+    @property
     def held_count(self):
         return self._raw_header.FilmHeader.HeldCount
 

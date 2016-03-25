@@ -185,6 +185,16 @@ class _DpxGenericImageElementEx(header._DpxGenericImageElement):
         else:
             return str(packing_type)
 
+    @property
+    def encoding_str(self):
+        encoding_type = self.encoding
+        if encoding_type == header.DpxImageElementEncoding.not_encoded:
+            return "Not encoded"
+        elif encoding_type == header.DpxImageElementEncoding.run_length_encoded:
+            return "Run length encoded (RLE)"
+        else:
+            return str(encoding_type)
+
 
 class _DpxIndustryTelevisionInfoHeaderEx(header._DpxIndustryTelevisionInfoHeader):
     def __init__(self, raw_header):

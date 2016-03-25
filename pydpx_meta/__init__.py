@@ -59,6 +59,7 @@ class DpxHeaderEx(DpxHeader):
         self.file_header = header_ex._DpxGenericHeaderEx(self.raw_header)
         self.image_header = header_ex._DpxGenericImageHeaderEx(self.raw_header)
 
+    @property
     def describe(self):
         output = "----------------\n"
         output += "DPX Header Info\n"
@@ -101,6 +102,12 @@ class DpxHeaderEx(DpxHeader):
             output += "  Colormetric: " + self.image_header.image_element[i].colorimetric_str + "\n"
             output += "  Bits size: " + str(self.image_header.image_element[i].bit_size) + " bits\n"
             output += "  Packing: " + self.image_header.image_element[i].packing_str + "\n"
+            output += "  Encoding: "+ self.image_header.image_element[i].encoding_str + "\n"
+            output += "  DataOffset: " + str(self.image_header.image_element[i].data_offset) + " bytes\n"
+            output += "  End of line padding: {0:d} bytes\n".format(
+                self.image_header.image_element[i].end_of_line_padding)
+            output += "  End of image padding: {0:d} bytes\n".format(
+                self.image_header.image_element[i].end_of_image_padding)
             output += "  Description: " + self.image_header.image_element[i].description + "\n"
 
 

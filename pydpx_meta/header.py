@@ -418,13 +418,13 @@ class _DpxGenericImageElement:
 
     @property
     def encoding(self):
-        packing_type = self._raw_image_element.Encoding
-        if packing_type == 0:
+        encoding_type = self._raw_image_element.Encoding
+        if encoding_type == 0:
             return DpxImageElementEncoding.not_encoded
-        elif packing_type == 1:
+        elif encoding_type == 1:
             return DpxImageElementEncoding.run_length_encoded
         else:
-            return packing_type
+            return encoding_type
 
     @packing.setter
     def packing(self, encoding_type):

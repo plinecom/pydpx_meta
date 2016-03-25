@@ -150,6 +150,41 @@ class _DpxGenericImageElementEx(header._DpxGenericImageElement):
         else:
             return str(trans)
 
+    @property
+    def colorimetric_str(self):
+
+        metric = self.colorimetric
+        if metric == header.DpxImageElementColorimetric.User_defined:
+            return "User-defined"
+        elif metric == header.DpxImageElementColorimetric.Printing_density:
+            return "Printing density"
+        elif metric == header.DpxImageElementColorimetric.Unspecified_video:
+            return "Unspecified video"
+        elif metric == header.DpxImageElementColorimetric.SMPTE_240M:
+            return "SMPTE 240M"
+        elif metric == header.DpxImageElementColorimetric.CCIR_709_1:
+            return "CCIR 709-1"
+        elif metric == header.DpxImageElementColorimetric.CCIR_601_2_system_B_or_G:
+            return "CCIR 601-2 system B or G"
+        elif metric == header.DpxImageElementColorimetric.CCIR_601_2_system_M:
+            return "CCIR 601-2 system M"
+        elif metric == header.DpxImageElementColorimetric.NTSC_composite_video:
+            return "NTSC composite video"
+        elif metric == header.DpxImageElementColorimetric.PAL_composite_video:
+            return "PAL composite video"
+        else:
+            return str(metric)
+
+    @property
+    def packing_str(self):
+        packing_type = self.packing
+        if packing_type == header.DpxImageElementPacking.packed32bit:
+            return "Packed 32bit"
+        elif packing_type == header.DpxImageElementPacking.filled32bit:
+            return "Filled 32bit"
+        else:
+            return str(packing_type)
+
 
 class _DpxIndustryTelevisionInfoHeaderEx(header._DpxIndustryTelevisionInfoHeader):
     def __init__(self, raw_header):

@@ -98,6 +98,9 @@ class DpxHeaderEx(DpxHeader):
             output += "  High Quantity: " + str(self.image_header.image_element[i].high_quantity) + "\n"
             output += "  Descriptor: " + self.image_header.image_element[i].descriptor_str + "\n"
             output += "  Transfer: " + self.image_header.image_element[i].transfer_str + "\n"
+            output += "  Colormetric: " + self.image_header.image_element[i].colorimetric_str + "\n"
+            output += "  Bits size: " + str(self.image_header.image_element[i].bit_size) + " bits\n"
+            output += "  Packing: " + self.image_header.image_element[i].packing_str + "\n"
             output += "  Description: " + self.image_header.image_element[i].description + "\n"
 
 

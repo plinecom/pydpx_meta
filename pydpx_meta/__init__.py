@@ -155,6 +155,7 @@ class DpxHeaderEx(DpxHeader):
         output += "User bits: {0}\n".format(self.tv_header.user_bits)
         output += "Interlace: " + str(self.tv_header.is_interlaced) + "\n"
         output += "Field Number: {0:d} field\n".format(self.tv_header.field_number)
+        output += "Video signal: {0}\n".format(self.tv_header.video_signal_str)
 
         output += str(self.raw_header.TvHeader.FrameRate)
 

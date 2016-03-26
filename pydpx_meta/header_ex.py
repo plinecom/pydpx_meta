@@ -223,3 +223,41 @@ class _DpxIndustryTelevisionInfoHeaderEx(header._DpxIndustryTelevisionInfoHeader
             self._raw_header.TvHeader.Interlace = 1
         else:
             self._raw_header.TvHeader.Interlace = 0
+
+
+    @property
+    def video_signal_str(self):
+        type = self.video_signal
+
+        if type == header.DpxIndustryTelevisionInfoHeaderVideoSignalType.Undefined:
+            return "Undefined"
+        elif type == header.DpxIndustryTelevisionInfoHeaderVideoSignalType.NTSC:
+            return "NTSC"
+        elif type == header.DpxIndustryTelevisionInfoHeaderVideoSignalType.PAL:
+            return "PAL"
+        elif type == header.DpxIndustryTelevisionInfoHeaderVideoSignalType.PAL_M:
+            return "PAL-M"
+        elif type == header.DpxIndustryTelevisionInfoHeaderVideoSignalType.SECAM:
+            return "SECAM"
+        elif type == header.DpxIndustryTelevisionInfoHeaderVideoSignalType.YCBCR_CCIR_601_2_525_line_2_1_interlace_4_3:
+            return "YCBCR CCIR 601-2 525-line 2:1 interlace, 4:3 aspect ratio"
+        elif type == header.DpxIndustryTelevisionInfoHeaderVideoSignalType.YCBCR_CCIR_601_2_625_line_2_1_interlace_4_3:
+            return "YCBCR CCIR 601-2 625-line 2:1 interlace, 4:3 aspect ratio"
+        elif type == header.DpxIndustryTelevisionInfoHeaderVideoSignalType.YCBCR_CCIR_601_2_525_line_2_1_interlace_16_9:
+            return "YCBCR CCIR 601-2 525-line 2:1 interlace, 16:9 aspect ratio"
+        elif type == header.DpxIndustryTelevisionInfoHeaderVideoSignalType.YCBCR_CCIR_601_2_625_line_2_1_interlace_16_9:
+            return "YCBCR CCIR 601-2 625-line 2:1 interlace, 16:9 aspect ratio"
+        elif type == header.DpxIndustryTelevisionInfoHeaderVideoSignalType.YCBCR_1050_line_2_1_interlace_16_9:
+            return "YCBCR 1050-line 2:1 interlace, 16:9 aspect ratio"
+        elif type == header.DpxIndustryTelevisionInfoHeaderVideoSignalType.YCBCR_1125_line_2_1_interlace_16_9:
+            return "YCBCR 1125-line 2:1 interlace, 16:9 aspect ratio"
+        elif type == header.DpxIndustryTelevisionInfoHeaderVideoSignalType.YCBCR_1250_line_2_1_interlace_16_9:
+            return "YCBCR 1250-line 2:1 interlace, 16:9 aspect ratio"
+        elif type == header.DpxIndustryTelevisionInfoHeaderVideoSignalType.YCBCR_525_line_1_1_progressive_16_9:
+            return "YCBCR 525-line 1:1 progressive, 16:9 aspect ratio"
+        elif type == header.DpxIndustryTelevisionInfoHeaderVideoSignalType.YCBCR_625_line_1_1_progressive_16_9:
+            return "YCBCR 625-line 1:1 progressive, 16:9 aspect ratio"
+        elif type == header.DpxIndustryTelevisionInfoHeaderVideoSignalType.YCBCR_787_5_line_1_1_progressive_16_9:
+            return "YCBCR 787.5-line 1:1 progressive, 16:9 aspect ratio"
+        else:
+            return str(type)

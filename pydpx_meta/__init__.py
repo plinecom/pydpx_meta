@@ -156,9 +156,17 @@ class DpxHeaderEx(DpxHeader):
         output += "Interlace: " + str(self.tv_header.is_interlaced) + "\n"
         output += "Field Number: {0:d} field\n".format(self.tv_header.field_number)
         output += "Video signal: {0}\n".format(self.tv_header.video_signal_str)
-
-        output += str(self.raw_header.TvHeader.FrameRate)
-
+        output += "Padding: {0:d}\n".format(self.tv_header.padding)
+        output += "Horizontal sampling rate: {0:f} Hz\n".format(self.tv_header.horizontal_sample_rate)
+        output += "Vertical sampling rate: {0:f} Hz\n".format(self.tv_header.vertical_sample_rate)
+        output += "Frame rate: {0:f} Hz\n".format(self.tv_header.frame_rate)
+        output += "Time offset: {0:f} micro-seconds\n".format(self.tv_header.time_offset)
+        output += "Gamma: {0:f}\n".format(self.tv_header.gamma)
+        output += "Black level: {0:f}\n".format(self.tv_header.black_level)
+        output += "Black gain: {0:f}\n".format(self.tv_header.black_gain)
+        output += "Break point {0:f}\n".format(self.tv_header.break_point)
+        output += "White level: {0:f}\n".format(self.tv_header.white_level)
+        output += "Integration times: {0:f}\n".format(self.tv_header.integration_times)
 
         return output
 

@@ -62,7 +62,6 @@ class DpxHeaderEx(DpxHeader):
         self.orient_header = header_ex._DpxGenericOrientationHeaderEx(self.raw_header)
         self.tv_header = header_ex._DpxIndustryTelevisionInfoHeaderEx(self.raw_header)
 
-    @property
     def describe(self):
         output = "----------------\n"
         output += "DPX Header Info\n"

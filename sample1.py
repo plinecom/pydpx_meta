@@ -31,7 +31,7 @@ print dpx.raw_header.FileHeader.DittoKey
 print dpx.raw_header.FileHeader.IndustrySize
 print dpx.raw_header.FileHeader.UserSize
 print dpx.raw_header.FileHeader.FileName
-print dpx.raw_header.FileHeader.TimeData
+print dpx.raw_header.FileHeader.TimeDate
 print dpx.raw_header.FileHeader.Creator
 print dpx.raw_header.FileHeader.Project
 print dpx.raw_header.ImageHeader.Orientation

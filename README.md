@@ -1,6 +1,7 @@
 # pydpx_meta
-Python dpx meta data library
+Python dpx image meta data read/write library
 
+Recommend: Use with timecode (https://github.com/eoyilmaz/timecode)
 
 Pythonでdpx画像のヘッダー情報を読む書きするためのライブラリです。
 

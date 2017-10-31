@@ -1,7 +1,7 @@
-import low_header_big_endian
-import low_header_little_endian
-import header
-import header_ex
+import pydpx_meta.low_header_big_endian
+import pydpx_meta.low_header_little_endian
+import pydpx_meta.header
+import pydpx_meta.header_ex
 import shutil
 
 

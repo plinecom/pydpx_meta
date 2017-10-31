@@ -1,4 +1,4 @@
-import header
+import pydpx_meta.header as header
 
 
 class _DpxGenericHeaderEx(header._DpxGenericHeader):

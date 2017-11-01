@@ -5,17 +5,18 @@ import glob
 files = []
 
 # time code sample
-files = glob.glob("/root/test/*.dpx")
+# files = glob.glob("/root/test/*.dpx")
+files = glob.glob("/Volumes/Rapid_TEST_SSD/src/A001_C014_1218UE_TEST/_sawa2/*.dpx")
 files = sorted(files)
 
-print "-------------------"
+print("-------------------")
 
 # display time code
 for file in files:
     dpx = pydpx_meta.DpxHeader(file)
-    print dpx.tv_header.time_code
+    print(dpx.tv_header.time_code)
 
-print "-------------------"
+print("-------------------")
 
 # increment 1 frame to time code
 dpx = pydpx_meta.DpxHeader(files[0])
@@ -27,4 +28,4 @@ for file in files:
     dpx = pydpx_meta.DpxHeader(file)
     tc += delta_tc
     dpx.tv_header.time_code = tc
-    print dpx.tv_header.time_code
+    print(dpx.tv_header.time_code)

@@ -832,8 +832,8 @@ class _DpxIndustryTelevisionInfoHeader:
 
     @time_code.setter
     def time_code(self, time_code):
-        time_code = time_code.lower()
-        time_code_hex = "".join(time_code.split(":"))
+        time_code = str(time_code.lower())
+        time_code_hex = "".join(str(time_code.split(":")))
         tc_dpx = int(time_code_hex, 16)
         self._raw_header.TvHeader.TimeCode = tc_dpx
 

@@ -5,8 +5,7 @@ import glob
 files = []
 
 # time code sample
-# files = glob.glob("/root/test/*.dpx")
-files = glob.glob("/Volumes/Rapid_TEST_SSD/src/A001_C014_1218UE_TEST/_sawa2/*.dpx")
+files = glob.glob("/root/test/*.dpx")
 files = sorted(files)
 
 print("-------------------")

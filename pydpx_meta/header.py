@@ -825,9 +825,12 @@ class _DpxIndustryTelevisionInfoHeader:
     @property
     def time_code(self):
         time_code_tmp = '{0:0>8x}'.format(self._raw_header.TvHeader.TimeCode)
-        time_code_str = "{0}:{1}:{2}:{3}".format(time_code_tmp[0:2], time_code_tmp[2:4], time_code_tmp[4:6],
-                                                 time_code_tmp[6:8])
-
+        if self._raw_header.FileHeader.Magic == b'XPDS':
+            time_code_str = "{0}:{1}:{2}:{3}".format(time_code_tmp[0:2], time_code_tmp[2:4], time_code_tmp[4:6],
+                                                     time_code_tmp[6:8])
+        else:
+            time_code_str = "{3}:{2}:{1}:{0}".format(time_code_tmp[0:2], time_code_tmp[2:4], time_code_tmp[4:6],
+                                                     time_code_tmp[6:8])
         return str(time_code_str)
 
     @time_code.setter

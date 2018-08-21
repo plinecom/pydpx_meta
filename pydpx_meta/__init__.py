@@ -20,7 +20,7 @@ class DpxHeader:
             fp.readinto(_header)
             fp.close()
 
-            if _header.FileHeader.Magic != 'SDPX':
+            if _header.FileHeader.Magic != b'SDPX':
                 _header = low_header_little_endian.DpxHeaderLittleEndian()
                 self._is_big_endian = False
                 fp = open(file_path, "rb")

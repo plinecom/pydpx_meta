@@ -827,13 +827,12 @@ class _DpxIndustryTelevisionInfoHeader:
         time_code_tmp = '{0:0>8x}'.format(self._raw_header.TvHeader.TimeCode)
         time_code_str = "{0}:{1}:{2}:{3}".format(time_code_tmp[0:2], time_code_tmp[2:4], time_code_tmp[4:6],
                                                  time_code_tmp[6:8])
-
         return str(time_code_str)
 
     @time_code.setter
     def time_code(self, time_code):
-        time_code = time_code.lower()
-        time_code_hex = "".join(time_code.split(":"))
+        time_code = str(time_code.lower())
+        time_code_hex = "".join(str(time_code.split(":")))
         tc_dpx = int(time_code_hex, 16)
         self._raw_header.TvHeader.TimeCode = tc_dpx
 
